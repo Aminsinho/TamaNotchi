@@ -85,6 +85,9 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
 
     private var presenceCancellable: AnyCancellable?
 
+    private let menuBarExtra = MenuBarExtraCoordinator()
+    private let settingsWindowController = TamaNotchiSettingsWindowController()
+
     /// La ventana está `orderOut` tras animación genio.
     private var isGenieHidden = false
     private var isGenieAnimatingOut = false
@@ -110,8 +113,37 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
 
         setupNotchWindow()
         startMouseProximityPolling()
+        installMenuBarExtra()
 
         NSApp.activate(ignoringOtherApps: true)
+    }
+
+    private func installMenuBarExtra() {
+        menuBarExtra.onTogglePetPanel = { [weak self] in
+            self?.toggleMascotaFromMenuBar()
+        }
+        menuBarExtra.onOpenSettings = { [weak self] in
+            self?.openSettingsFromMenuBar()
+        }
+        menuBarExtra.onQuit = {
+            NSApp.terminate(nil)
+        }
+        menuBarExtra.install()
+    }
+
+    /// Menú barra: misma lógica que el ocultamiento por inactividad (genio) / franja de despertar.
+    private func toggleMascotaFromMenuBar() {
+        guard let screen = targetScreen() else { return }
+        if isGenieHidden {
+            restoreFromGenie(screen: screen)
+        } else {
+            performGenieHide(fallbackScreen: screen)
+        }
+        noteUserPresence()
+    }
+
+    private func openSettingsFromMenuBar() {
+        settingsWindowController.show()
     }
 
     func applicationWillTerminate(_ notification: Notification) {
@@ -127,7 +159,6 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
             .ignoresSafeArea(.all)
 
         let host = NotchHostingRoot(rootView: AnyView(root))
-        host.layer?.backgroundColor = NSColor.black.cgColor
 
         let window = NotchKeyWindow(
             contentRect: initialFrame(),
@@ -136,9 +167,10 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
             defer: false
         )
         window.contentView = host
-        window.isOpaque = true
-        window.backgroundColor = NSColor.black
-        window.hasShadow = false
+        /// `isOpaque = false` + fondo claro: las esquinas fuera del redondeo no pintan negro y el radio **se ve**; el negro solo va en el área recortada del contentView.
+        window.isOpaque = false
+        window.backgroundColor = .clear
+        window.hasShadow = true
         /// Por encima de la barra de menús (integración notch / sin corte con el menú).
         window.level = .popUpMenu
         window.collectionBehavior = [.canJoinAllSpaces, .fullScreenAuxiliary, .stationary]
@@ -153,6 +185,11 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         applyWindowFrame(revealed: true, animated: false)
         window.makeKeyAndOrderFront(nil)
         noteUserPresence()
+
+        DispatchQueue.main.async { [weak self] in
+            guard let self, let host = self.notchWindow?.contentView as? NotchHostingRoot else { return }
+            host.syncIslandCornerRadius(revealed: self.notchHost.isRevealed)
+        }
     }
 
     private func initialFrame() -> NSRect {
@@ -330,6 +367,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
 
 private final class NotchHostingRoot: NSView {
     private var hostingView: NSHostingView<AnyView>?
+    private var cornerRevealState: Bool = true
 
     init(rootView: AnyView) {
         super.init(frame: .zero)
@@ -337,6 +375,11 @@ private final class NotchHostingRoot: NSView {
         layer?.backgroundColor = NSColor.black.cgColor
         layer?.masksToBounds = true
         embed(rootView: rootView)
+    }
+
+    override func layout() {
+        super.layout()
+        applyIslandCornerRadii(revealed: cornerRevealState)
     }
 
     @available(*, unavailable)
@@ -360,22 +403,28 @@ private final class NotchHostingRoot: NSView {
         hostingView = hv
     }
 
-    /// Alineado con `NotchPetView.islandBottomCornerRadius` (solo esquinas inferiores).
+    /// Esquinas inferiores redondeadas (≥20 pt expandido); clip del fondo negro + SwiftUI.
     func syncIslandCornerRadius(revealed: Bool) {
+        cornerRevealState = revealed
+        applyIslandCornerRadii(revealed: revealed)
+    }
+
+    private func applyIslandCornerRadii(revealed: Bool) {
         let height = revealed ? NotchWindowMetrics.fullHeight : NotchWindowMetrics.collapsedUnderNotchHeight
         let radius: CGFloat = revealed ? 36 : min(16, max(2, height * 0.5))
-        let bottomCorners: CACornerMask = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
-        layer?.cornerRadius = radius
-        layer?.maskedCorners = bottomCorners
-        layer?.masksToBounds = true
-        if #available(macOS 11.0, *) {
-            layer?.cornerCurve = .continuous
-        }
-        hostingView?.layer?.cornerRadius = radius
-        hostingView?.layer?.maskedCorners = bottomCorners
-        hostingView?.layer?.masksToBounds = true
-        if #available(macOS 11.0, *) {
-            hostingView?.layer?.cornerCurve = .continuous
+        /// En macOS el origen del layer está abajo: esquinas **inferiores** del view = `MinY`.
+        let bottomCorners: CACornerMask = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
+
+        let surfaces = [layer, hostingView?.layer].compactMap { $0 }
+        for surface in surfaces {
+            surface.cornerRadius = radius
+            surface.maskedCorners = bottomCorners
+            surface.masksToBounds = true
+            surface.borderWidth = 0
+            surface.borderColor = nil
+            if #available(macOS 11.0, *) {
+                surface.cornerCurve = .continuous
+            }
         }
     }
 }

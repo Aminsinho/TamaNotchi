@@ -51,6 +51,13 @@
     "swift-dependencies": "/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi.build/MediaRemoteNowPlayingFetcher.swiftdeps",
     "diagnostics": "/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi.build/MediaRemoteNowPlayingFetcher.dia"
   },
+  "/Users/aminjoudigueraa/TamaNotchi/TamaNotchi/MenuBarExtraCoordinator.swift": {
+    "dependencies": "/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi.build/MenuBarExtraCoordinator.d",
+    "object": "/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi.build/MenuBarExtraCoordinator.swift.o",
+    "swiftmodule": "/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi.build/MenuBarExtraCoordinator~partial.swiftmodule",
+    "swift-dependencies": "/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi.build/MenuBarExtraCoordinator.swiftdeps",
+    "diagnostics": "/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi.build/MenuBarExtraCoordinator.dia"
+  },
   "/Users/aminjoudigueraa/TamaNotchi/TamaNotchi/NotchKeyWindow.swift": {
     "dependencies": "/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi.build/NotchKeyWindow.d",
     "object": "/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi.build/NotchKeyWindow.swift.o",
@@ -86,6 +93,13 @@
     "swift-dependencies": "/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi.build/PetStats.swiftdeps",
     "diagnostics": "/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi.build/PetStats.dia"
   },
+  "/Users/aminjoudigueraa/TamaNotchi/TamaNotchi/PixelCatTemplateIcon.swift": {
+    "dependencies": "/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi.build/PixelCatTemplateIcon.d",
+    "object": "/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi.build/PixelCatTemplateIcon.swift.o",
+    "swiftmodule": "/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi.build/PixelCatTemplateIcon~partial.swiftmodule",
+    "swift-dependencies": "/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi.build/PixelCatTemplateIcon.swiftdeps",
+    "diagnostics": "/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi.build/PixelCatTemplateIcon.dia"
+  },
   "/Users/aminjoudigueraa/TamaNotchi/TamaNotchi/SystemMediaRemoteCommands.swift": {
     "dependencies": "/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi.build/SystemMediaRemoteCommands.d",
     "object": "/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi.build/SystemMediaRemoteCommands.swift.o",
@@ -106,6 +120,13 @@
     "swiftmodule": "/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi.build/TamaNotchiBootstrap~partial.swiftmodule",
     "swift-dependencies": "/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi.build/TamaNotchiBootstrap.swiftdeps",
     "diagnostics": "/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi.build/TamaNotchiBootstrap.dia"
+  },
+  "/Users/aminjoudigueraa/TamaNotchi/TamaNotchi/TamaNotchiSettingsWindowController.swift": {
+    "dependencies": "/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi.build/TamaNotchiSettingsWindowController.d",
+    "object": "/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi.build/TamaNotchiSettingsWindowController.swift.o",
+    "swiftmodule": "/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi.build/TamaNotchiSettingsWindowController~partial.swiftmodule",
+    "swift-dependencies": "/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi.build/TamaNotchiSettingsWindowController.swiftdeps",
+    "diagnostics": "/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi.build/TamaNotchiSettingsWindowController.dia"
   },
   "/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi.build/DerivedSources/resource_bundle_accessor.swift": {
     "dependencies": "/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi.build/resource_bundle_accessor.d",
