@@ -66,7 +66,7 @@ private enum NotchIslandGeometry {
 }
 
 final class NotchWindowHost: ObservableObject {
-    @Published fileprivate(set) var isRevealed: Bool = false
+    @Published fileprivate(set) var isRevealed: Bool = true
     fileprivate weak var window: NSWindow?
 
     fileprivate func setRevealed(_ revealed: Bool) {
@@ -150,18 +150,19 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
 
         notchHost.window = window
         notchWindow = window
-        applyWindowFrame(revealed: false, animated: false)
+        applyWindowFrame(revealed: true, animated: false)
         window.makeKeyAndOrderFront(nil)
+        noteUserPresence()
     }
 
     private func initialFrame() -> NSRect {
         guard let screen = targetScreen() else {
-            return NSRect(x: 0, y: 0, width: NotchWindowMetrics.windowWidth, height: NotchWindowMetrics.collapsedUnderNotchHeight)
+            return NSRect(x: 0, y: 0, width: NotchWindowMetrics.windowWidth, height: NotchWindowMetrics.fullHeight)
         }
         return NotchIslandGeometry.petWindowFrame(
             screen: screen,
             width: NotchWindowMetrics.windowWidth,
-            height: NotchWindowMetrics.collapsedUnderNotchHeight
+            height: NotchWindowMetrics.fullHeight
         )
     }
 
