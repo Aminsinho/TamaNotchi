@@ -1,0 +1,146 @@
+client:
+  name: basic
+  file-system: device-agnostic
+tools: {}
+targets:
+  "PackageStructure": ["<PackageStructure>"]
+  "TamaNotchi-arm64-apple-macosx-debug.exe": ["<TamaNotchi-arm64-apple-macosx-debug.exe>"]
+  "TamaNotchi-arm64-apple-macosx-debug.module": ["<TamaNotchi-arm64-apple-macosx-debug.module>"]
+  "main": ["<TamaNotchi-arm64-apple-macosx-debug.exe>","<TamaNotchi-arm64-apple-macosx-debug.module>"]
+  "test": ["<TamaNotchi-arm64-apple-macosx-debug.exe>","<TamaNotchi-arm64-apple-macosx-debug.module>"]
+default: "main"
+nodes:
+  "/Users/aminjoudigueraa/TamaNotchi/TamaNotchi/":
+    is-directory-structure: true
+    content-exclusion-patterns: [".git",".build"]
+  "/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi":
+    is-mutated: true
+commands:
+  "/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi-entitlement.plist":
+    tool: write-auxiliary-file
+    inputs: ["<entitlement-plist>","<com.apple.security.get-task-allow>"]
+    outputs: ["/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi-entitlement.plist"]
+    description: "Write auxiliary file /Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi-entitlement.plist"
+
+  "/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi.build/sources":
+    tool: write-auxiliary-file
+    inputs: ["<sources-file-list>","/Users/aminjoudigueraa/TamaNotchi/TamaNotchi/AnimatedGifRepresentable.swift","/Users/aminjoudigueraa/TamaNotchi/TamaNotchi/AppDelegate.swift","/Users/aminjoudigueraa/TamaNotchi/TamaNotchi/AppleScriptMediaProbe.swift","/Users/aminjoudigueraa/TamaNotchi/TamaNotchi/CarePopoverView.swift","/Users/aminjoudigueraa/TamaNotchi/TamaNotchi/MediaKeyControl.swift","/Users/aminjoudigueraa/TamaNotchi/TamaNotchi/NotchKeyWindow.swift","/Users/aminjoudigueraa/TamaNotchi/TamaNotchi/NotchPetView.swift","/Users/aminjoudigueraa/TamaNotchi/TamaNotchi/NowPlayingMonitor.swift","/Users/aminjoudigueraa/TamaNotchi/TamaNotchi/PetArt.swift","/Users/aminjoudigueraa/TamaNotchi/TamaNotchi/PetStats.swift","/Users/aminjoudigueraa/TamaNotchi/TamaNotchi/TamaNotchiApp.swift","/Users/aminjoudigueraa/TamaNotchi/TamaNotchi/TamaNotchiBootstrap.swift","/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi.build/DerivedSources/resource_bundle_accessor.swift"]
+    outputs: ["/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi.build/sources"]
+    description: "Write auxiliary file /Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi.build/sources"
+
+  "/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi.product/Objects.LinkFileList":
+    tool: write-auxiliary-file
+    inputs: ["<link-file-list>","/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi.build/AnimatedGifRepresentable.swift.o","/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi.build/AppDelegate.swift.o","/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi.build/AppleScriptMediaProbe.swift.o","/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi.build/CarePopoverView.swift.o","/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi.build/MediaKeyControl.swift.o","/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi.build/NotchKeyWindow.swift.o","/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi.build/NotchPetView.swift.o","/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi.build/NowPlayingMonitor.swift.o","/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi.build/PetArt.swift.o","/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi.build/PetStats.swift.o","/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi.build/TamaNotchiApp.swift.o","/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi.build/TamaNotchiBootstrap.swift.o","/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi.build/resource_bundle_accessor.swift.o"]
+    outputs: ["/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi.product/Objects.LinkFileList"]
+    description: "Write auxiliary file /Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi.product/Objects.LinkFileList"
+
+  "/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi_TamaNotchi.bundle/icon_food.png":
+    tool: copy-tool
+    inputs: ["/Users/aminjoudigueraa/TamaNotchi/TamaNotchi/BundleResources/icon_food.png"]
+    outputs: ["/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi_TamaNotchi.bundle/icon_food.png"]
+    description: "Copying /Users/aminjoudigueraa/TamaNotchi/TamaNotchi/BundleResources/icon_food.png"
+
+  "/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi_TamaNotchi.bundle/icon_hand.png":
+    tool: copy-tool
+    inputs: ["/Users/aminjoudigueraa/TamaNotchi/TamaNotchi/BundleResources/icon_hand.png"]
+    outputs: ["/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi_TamaNotchi.bundle/icon_hand.png"]
+    description: "Copying /Users/aminjoudigueraa/TamaNotchi/TamaNotchi/BundleResources/icon_hand.png"
+
+  "/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi_TamaNotchi.bundle/icon_play.png":
+    tool: copy-tool
+    inputs: ["/Users/aminjoudigueraa/TamaNotchi/TamaNotchi/BundleResources/icon_play.png"]
+    outputs: ["/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi_TamaNotchi.bundle/icon_play.png"]
+    description: "Copying /Users/aminjoudigueraa/TamaNotchi/TamaNotchi/BundleResources/icon_play.png"
+
+  "/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi_TamaNotchi.bundle/pet_blink.png":
+    tool: copy-tool
+    inputs: ["/Users/aminjoudigueraa/TamaNotchi/TamaNotchi/BundleResources/pet_blink.png"]
+    outputs: ["/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi_TamaNotchi.bundle/pet_blink.png"]
+    description: "Copying /Users/aminjoudigueraa/TamaNotchi/TamaNotchi/BundleResources/pet_blink.png"
+
+  "/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi_TamaNotchi.bundle/pet_eating.gif":
+    tool: copy-tool
+    inputs: ["/Users/aminjoudigueraa/TamaNotchi/TamaNotchi/BundleResources/pet_eating.gif"]
+    outputs: ["/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi_TamaNotchi.bundle/pet_eating.gif"]
+    description: "Copying /Users/aminjoudigueraa/TamaNotchi/TamaNotchi/BundleResources/pet_eating.gif"
+
+  "/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi_TamaNotchi.bundle/pet_hand.gif":
+    tool: copy-tool
+    inputs: ["/Users/aminjoudigueraa/TamaNotchi/TamaNotchi/BundleResources/pet_hand.gif"]
+    outputs: ["/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi_TamaNotchi.bundle/pet_hand.gif"]
+    description: "Copying /Users/aminjoudigueraa/TamaNotchi/TamaNotchi/BundleResources/pet_hand.gif"
+
+  "/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi_TamaNotchi.bundle/pet_happy_dance.gif":
+    tool: copy-tool
+    inputs: ["/Users/aminjoudigueraa/TamaNotchi/TamaNotchi/BundleResources/pet_happy_dance.gif"]
+    outputs: ["/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi_TamaNotchi.bundle/pet_happy_dance.gif"]
+    description: "Copying /Users/aminjoudigueraa/TamaNotchi/TamaNotchi/BundleResources/pet_happy_dance.gif"
+
+  "/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi_TamaNotchi.bundle/pet_happy_play.gif":
+    tool: copy-tool
+    inputs: ["/Users/aminjoudigueraa/TamaNotchi/TamaNotchi/BundleResources/pet_happy_play.gif"]
+    outputs: ["/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi_TamaNotchi.bundle/pet_happy_play.gif"]
+    description: "Copying /Users/aminjoudigueraa/TamaNotchi/TamaNotchi/BundleResources/pet_happy_play.gif"
+
+  "/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi_TamaNotchi.bundle/pet_hungry.png":
+    tool: copy-tool
+    inputs: ["/Users/aminjoudigueraa/TamaNotchi/TamaNotchi/BundleResources/pet_hungry.png"]
+    outputs: ["/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi_TamaNotchi.bundle/pet_hungry.png"]
+    description: "Copying /Users/aminjoudigueraa/TamaNotchi/TamaNotchi/BundleResources/pet_hungry.png"
+
+  "/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi_TamaNotchi.bundle/pet_idle.png":
+    tool: copy-tool
+    inputs: ["/Users/aminjoudigueraa/TamaNotchi/TamaNotchi/BundleResources/pet_idle.png"]
+    outputs: ["/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi_TamaNotchi.bundle/pet_idle.png"]
+    description: "Copying /Users/aminjoudigueraa/TamaNotchi/TamaNotchi/BundleResources/pet_idle.png"
+
+  "/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/swift-version--58304C5D6DBC2206.txt":
+    tool: write-auxiliary-file
+    inputs: ["<swift-get-version>","/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc"]
+    outputs: ["/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/swift-version--58304C5D6DBC2206.txt"]
+    always-out-of-date: "true"
+    description: "Write auxiliary file /Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/swift-version--58304C5D6DBC2206.txt"
+
+  "<TamaNotchi-arm64-apple-macosx-debug.exe>":
+    tool: phony
+    inputs: ["<TamaNotchi-arm64-apple-macosx-debug.exe-CodeSigning>"]
+    outputs: ["<TamaNotchi-arm64-apple-macosx-debug.exe>"]
+
+  "<TamaNotchi-arm64-apple-macosx-debug.module>":
+    tool: phony
+    inputs: ["/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi.build/AnimatedGifRepresentable.swift.o","/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi.build/AppDelegate.swift.o","/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi.build/AppleScriptMediaProbe.swift.o","/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi.build/CarePopoverView.swift.o","/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi.build/MediaKeyControl.swift.o","/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi.build/NotchKeyWindow.swift.o","/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi.build/NotchPetView.swift.o","/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi.build/NowPlayingMonitor.swift.o","/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi.build/PetArt.swift.o","/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi.build/PetStats.swift.o","/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi.build/TamaNotchiApp.swift.o","/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi.build/TamaNotchiBootstrap.swift.o","/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi.build/resource_bundle_accessor.swift.o","/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/Modules/TamaNotchi.swiftmodule"]
+    outputs: ["<TamaNotchi-arm64-apple-macosx-debug.module>"]
+
+  "C.TamaNotchi-arm64-apple-macosx-debug.exe":
+    tool: shell
+    inputs: ["/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi.build/AnimatedGifRepresentable.swift.o","/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi.build/AppDelegate.swift.o","/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi.build/AppleScriptMediaProbe.swift.o","/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi.build/CarePopoverView.swift.o","/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi.build/MediaKeyControl.swift.o","/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi.build/NotchKeyWindow.swift.o","/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi.build/NotchPetView.swift.o","/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi.build/NowPlayingMonitor.swift.o","/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi.build/PetArt.swift.o","/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi.build/PetStats.swift.o","/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi.build/TamaNotchiApp.swift.o","/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi.build/TamaNotchiBootstrap.swift.o","/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi.build/resource_bundle_accessor.swift.o","/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi.product/Objects.LinkFileList"]
+    outputs: ["/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi"]
+    description: "Linking ./.build/arm64-apple-macosx/debug/TamaNotchi"
+    args: ["/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc","-L","/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug","-o","/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi","-module-name","TamaNotchi","-Xlinker","-no_warn_duplicate_libraries","-emit-executable","-Xlinker","-alias","-Xlinker","_TamaNotchi_main","-Xlinker","_main","-Xlinker","-rpath","-Xlinker","@loader_path","@/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi.product/Objects.LinkFileList","-Xlinker","-rpath","-Xlinker","/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift-6.2/macosx","-target","arm64-apple-macosx13.0","-Xlinker","-add_ast_path","-Xlinker","/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/Modules/TamaNotchi.swiftmodule","-plugin-path","/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/host/plugins/testing","-sdk","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.4.sdk","-F","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks","-I","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib","-L","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib","-g"]
+
+  "C.TamaNotchi-arm64-apple-macosx-debug.exe-entitlements":
+    tool: shell
+    inputs: ["/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi","/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi-entitlement.plist"]
+    outputs: ["<TamaNotchi-arm64-apple-macosx-debug.exe-CodeSigning>"]
+    description: "Applying debug entitlements to ./.build/arm64-apple-macosx/debug/TamaNotchi"
+    args: ["codesign","--force","--sign","-","--entitlements","/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi-entitlement.plist","/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi"]
+
+  "C.TamaNotchi-arm64-apple-macosx-debug.module":
+    tool: shell
+    inputs: ["/Users/aminjoudigueraa/TamaNotchi/TamaNotchi/AnimatedGifRepresentable.swift","/Users/aminjoudigueraa/TamaNotchi/TamaNotchi/AppDelegate.swift","/Users/aminjoudigueraa/TamaNotchi/TamaNotchi/AppleScriptMediaProbe.swift","/Users/aminjoudigueraa/TamaNotchi/TamaNotchi/CarePopoverView.swift","/Users/aminjoudigueraa/TamaNotchi/TamaNotchi/MediaKeyControl.swift","/Users/aminjoudigueraa/TamaNotchi/TamaNotchi/NotchKeyWindow.swift","/Users/aminjoudigueraa/TamaNotchi/TamaNotchi/NotchPetView.swift","/Users/aminjoudigueraa/TamaNotchi/TamaNotchi/NowPlayingMonitor.swift","/Users/aminjoudigueraa/TamaNotchi/TamaNotchi/PetArt.swift","/Users/aminjoudigueraa/TamaNotchi/TamaNotchi/PetStats.swift","/Users/aminjoudigueraa/TamaNotchi/TamaNotchi/TamaNotchiApp.swift","/Users/aminjoudigueraa/TamaNotchi/TamaNotchi/TamaNotchiBootstrap.swift","/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi.build/DerivedSources/resource_bundle_accessor.swift","/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/swift-version--58304C5D6DBC2206.txt","<TamaNotchi-arm64-apple-macosx-debug.module-resources>","/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi.build/sources"]
+    outputs: ["/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi.build/AnimatedGifRepresentable.swift.o","/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi.build/AppDelegate.swift.o","/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi.build/AppleScriptMediaProbe.swift.o","/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi.build/CarePopoverView.swift.o","/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi.build/MediaKeyControl.swift.o","/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi.build/NotchKeyWindow.swift.o","/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi.build/NotchPetView.swift.o","/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi.build/NowPlayingMonitor.swift.o","/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi.build/PetArt.swift.o","/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi.build/PetStats.swift.o","/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi.build/TamaNotchiApp.swift.o","/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi.build/TamaNotchiBootstrap.swift.o","/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi.build/resource_bundle_accessor.swift.o","/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/Modules/TamaNotchi.swiftmodule"]
+    description: "Compiling Swift Module 'TamaNotchi' (13 sources)"
+    args: ["/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc","-module-name","TamaNotchi","-emit-dependencies","-emit-module","-emit-module-path","/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/Modules/TamaNotchi.swiftmodule","-output-file-map","/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi.build/output-file-map.json","-incremental","-c","@/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi.build/sources","-I","/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/Modules","-target","arm64-apple-macosx13.0","-incremental","-enable-batch-mode","-serialize-diagnostics","-index-store-path","/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/index/store","-Onone","-enable-testing","-j10","-DSWIFT_PACKAGE","-DDEBUG","-DSWIFT_MODULE_RESOURCE_BUNDLE_AVAILABLE","-module-cache-path","/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/ModuleCache","-parseable-output","-Xfrontend","-entry-point-function-name","-Xfrontend","TamaNotchi_main","-color-diagnostics","-swift-version","5","-plugin-path","/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/host/plugins/testing","-sdk","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.4.sdk","-F","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks","-I","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib","-L","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib","-g","-Xcc","-isysroot","-Xcc","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.4.sdk","-Xcc","-F","-Xcc","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks","-Xcc","-fPIC","-Xcc","-g","-package-name","tamanotchi"]
+
+  "PackageStructure":
+    tool: package-structure-tool
+    inputs: ["/Users/aminjoudigueraa/TamaNotchi/TamaNotchi/","/Users/aminjoudigueraa/TamaNotchi/Package.swift","/Users/aminjoudigueraa/TamaNotchi/Package.resolved"]
+    outputs: ["<PackageStructure>"]
+    description: "Planning build"
+    allow-missing-inputs: true
+
+  "TamaNotchi-arm64-apple-macosx-debug.module-resources":
+    tool: phony
+    inputs: ["/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi_TamaNotchi.bundle/icon_food.png","/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi_TamaNotchi.bundle/icon_hand.png","/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi_TamaNotchi.bundle/icon_play.png","/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi_TamaNotchi.bundle/pet_blink.png","/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi_TamaNotchi.bundle/pet_eating.gif","/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi_TamaNotchi.bundle/pet_hand.gif","/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi_TamaNotchi.bundle/pet_happy_dance.gif","/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi_TamaNotchi.bundle/pet_happy_play.gif","/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi_TamaNotchi.bundle/pet_hungry.png","/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi_TamaNotchi.bundle/pet_idle.png"]
+    outputs: ["<TamaNotchi-arm64-apple-macosx-debug.module-resources>"]
+

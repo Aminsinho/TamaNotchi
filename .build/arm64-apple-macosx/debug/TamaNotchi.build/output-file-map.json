@@ -1,0 +1,96 @@
+{
+  "": {
+    "swift-dependencies": "/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi.build/primary.swiftdeps"
+  },
+  "/Users/aminjoudigueraa/TamaNotchi/TamaNotchi/AnimatedGifRepresentable.swift": {
+    "dependencies": "/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi.build/AnimatedGifRepresentable.d",
+    "object": "/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi.build/AnimatedGifRepresentable.swift.o",
+    "swiftmodule": "/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi.build/AnimatedGifRepresentable~partial.swiftmodule",
+    "swift-dependencies": "/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi.build/AnimatedGifRepresentable.swiftdeps",
+    "diagnostics": "/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi.build/AnimatedGifRepresentable.dia"
+  },
+  "/Users/aminjoudigueraa/TamaNotchi/TamaNotchi/AppDelegate.swift": {
+    "dependencies": "/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi.build/AppDelegate.d",
+    "object": "/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi.build/AppDelegate.swift.o",
+    "swiftmodule": "/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi.build/AppDelegate~partial.swiftmodule",
+    "swift-dependencies": "/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi.build/AppDelegate.swiftdeps",
+    "diagnostics": "/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi.build/AppDelegate.dia"
+  },
+  "/Users/aminjoudigueraa/TamaNotchi/TamaNotchi/AppleScriptMediaProbe.swift": {
+    "dependencies": "/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi.build/AppleScriptMediaProbe.d",
+    "object": "/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi.build/AppleScriptMediaProbe.swift.o",
+    "swiftmodule": "/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi.build/AppleScriptMediaProbe~partial.swiftmodule",
+    "swift-dependencies": "/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi.build/AppleScriptMediaProbe.swiftdeps",
+    "diagnostics": "/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi.build/AppleScriptMediaProbe.dia"
+  },
+  "/Users/aminjoudigueraa/TamaNotchi/TamaNotchi/CarePopoverView.swift": {
+    "dependencies": "/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi.build/CarePopoverView.d",
+    "object": "/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi.build/CarePopoverView.swift.o",
+    "swiftmodule": "/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi.build/CarePopoverView~partial.swiftmodule",
+    "swift-dependencies": "/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi.build/CarePopoverView.swiftdeps",
+    "diagnostics": "/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi.build/CarePopoverView.dia"
+  },
+  "/Users/aminjoudigueraa/TamaNotchi/TamaNotchi/MediaKeyControl.swift": {
+    "dependencies": "/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi.build/MediaKeyControl.d",
+    "object": "/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi.build/MediaKeyControl.swift.o",
+    "swiftmodule": "/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi.build/MediaKeyControl~partial.swiftmodule",
+    "swift-dependencies": "/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi.build/MediaKeyControl.swiftdeps",
+    "diagnostics": "/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi.build/MediaKeyControl.dia"
+  },
+  "/Users/aminjoudigueraa/TamaNotchi/TamaNotchi/NotchKeyWindow.swift": {
+    "dependencies": "/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi.build/NotchKeyWindow.d",
+    "object": "/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi.build/NotchKeyWindow.swift.o",
+    "swiftmodule": "/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi.build/NotchKeyWindow~partial.swiftmodule",
+    "swift-dependencies": "/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi.build/NotchKeyWindow.swiftdeps",
+    "diagnostics": "/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi.build/NotchKeyWindow.dia"
+  },
+  "/Users/aminjoudigueraa/TamaNotchi/TamaNotchi/NotchPetView.swift": {
+    "dependencies": "/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi.build/NotchPetView.d",
+    "object": "/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi.build/NotchPetView.swift.o",
+    "swiftmodule": "/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi.build/NotchPetView~partial.swiftmodule",
+    "swift-dependencies": "/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi.build/NotchPetView.swiftdeps",
+    "diagnostics": "/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi.build/NotchPetView.dia"
+  },
+  "/Users/aminjoudigueraa/TamaNotchi/TamaNotchi/NowPlayingMonitor.swift": {
+    "dependencies": "/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi.build/NowPlayingMonitor.d",
+    "object": "/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi.build/NowPlayingMonitor.swift.o",
+    "swiftmodule": "/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi.build/NowPlayingMonitor~partial.swiftmodule",
+    "swift-dependencies": "/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi.build/NowPlayingMonitor.swiftdeps",
+    "diagnostics": "/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi.build/NowPlayingMonitor.dia"
+  },
+  "/Users/aminjoudigueraa/TamaNotchi/TamaNotchi/PetArt.swift": {
+    "dependencies": "/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi.build/PetArt.d",
+    "object": "/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi.build/PetArt.swift.o",
+    "swiftmodule": "/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi.build/PetArt~partial.swiftmodule",
+    "swift-dependencies": "/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi.build/PetArt.swiftdeps",
+    "diagnostics": "/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi.build/PetArt.dia"
+  },
+  "/Users/aminjoudigueraa/TamaNotchi/TamaNotchi/PetStats.swift": {
+    "dependencies": "/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi.build/PetStats.d",
+    "object": "/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi.build/PetStats.swift.o",
+    "swiftmodule": "/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi.build/PetStats~partial.swiftmodule",
+    "swift-dependencies": "/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi.build/PetStats.swiftdeps",
+    "diagnostics": "/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi.build/PetStats.dia"
+  },
+  "/Users/aminjoudigueraa/TamaNotchi/TamaNotchi/TamaNotchiApp.swift": {
+    "dependencies": "/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi.build/TamaNotchiApp.d",
+    "object": "/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi.build/TamaNotchiApp.swift.o",
+    "swiftmodule": "/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi.build/TamaNotchiApp~partial.swiftmodule",
+    "swift-dependencies": "/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi.build/TamaNotchiApp.swiftdeps",
+    "diagnostics": "/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi.build/TamaNotchiApp.dia"
+  },
+  "/Users/aminjoudigueraa/TamaNotchi/TamaNotchi/TamaNotchiBootstrap.swift": {
+    "dependencies": "/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi.build/TamaNotchiBootstrap.d",
+    "object": "/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi.build/TamaNotchiBootstrap.swift.o",
+    "swiftmodule": "/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi.build/TamaNotchiBootstrap~partial.swiftmodule",
+    "swift-dependencies": "/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi.build/TamaNotchiBootstrap.swiftdeps",
+    "diagnostics": "/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi.build/TamaNotchiBootstrap.dia"
+  },
+  "/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi.build/DerivedSources/resource_bundle_accessor.swift": {
+    "dependencies": "/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi.build/resource_bundle_accessor.d",
+    "object": "/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi.build/resource_bundle_accessor.swift.o",
+    "swiftmodule": "/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi.build/resource_bundle_accessor~partial.swiftmodule",
+    "swift-dependencies": "/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi.build/resource_bundle_accessor.swiftdeps",
+    "diagnostics": "/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi.build/resource_bundle_accessor.dia"
+  }
+}
