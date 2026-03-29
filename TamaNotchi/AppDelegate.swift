@@ -82,6 +82,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     private let petStats = PetStats()
     private let notchHost = NotchWindowHost()
     private let nowPlaying = NowPlayingMonitor()
+    private let skinStore = PetSkinStore()
 
     private var presenceCancellable: AnyCancellable?
 
@@ -143,7 +144,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     }
 
     private func openSettingsFromMenuBar() {
-        settingsWindowController.show()
+        settingsWindowController.show(skinStore: skinStore)
     }
 
     func applicationWillTerminate(_ notification: Notification) {
@@ -156,6 +157,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
             .environmentObject(petStats)
             .environmentObject(notchHost)
             .environmentObject(nowPlaying)
+            .environmentObject(skinStore)
             .ignoresSafeArea(.all)
 
         let host = NotchHostingRoot(rootView: AnyView(root))

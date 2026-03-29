@@ -5,6 +5,7 @@ struct NotchPetView: View {
     @EnvironmentObject private var petStats: PetStats
     @EnvironmentObject private var notchHost: NotchWindowHost
     @EnvironmentObject private var nowPlaying: NowPlayingMonitor
+    @EnvironmentObject private var skinStore: PetSkinStore
 
     private var expanded: Bool { notchHost.isRevealed }
 
@@ -15,6 +16,7 @@ struct NotchPetView: View {
             && !petStats.isEating
             && !petStats.isPlayAnimating
             && !petStats.isStrokeAnimating
+            && !petStats.isRefusing
     }
 
     private var petW: CGFloat {
@@ -85,6 +87,11 @@ struct NotchPetView: View {
         .animation(.spring(response: 0.48, dampingFraction: 0.82), value: expanded)
         .animation(.easeInOut(duration: 0.18), value: petDisplayKey)
         .animation(.easeInOut(duration: 0.2), value: nowPlaying.isPlaying)
+        .onChange(of: expanded) { isRevealed in
+            if isRevealed, petStats.isVeryHungry {
+                petStats.beginRefusalAnimation()
+            }
+        }
     }
 
     private func heroRow(danceBob: CGFloat) -> some View {
@@ -99,10 +106,18 @@ struct NotchPetView: View {
 
             Spacer(minLength: 2)
 
-            petSprite
-                .frame(width: petW, height: petH)
-                .offset(y: danceBob)
-                .clipped()
+            ZStack(alignment: .top) {
+                petSprite
+                    .frame(width: petW, height: petH)
+                    .offset(y: danceBob)
+                    .clipped()
+
+                if petStats.showFoodFirstHint {
+                    foodFirstHintBubble
+                        .offset(y: danceBob - (expanded ? 8 : 6))
+                }
+            }
+            .id("\(skinStore.selectedSkinId)-\(petDisplayKey)")
 
             Spacer(minLength: 2)
 
@@ -135,17 +150,43 @@ struct NotchPetView: View {
 
     private var careActionsRow: some View {
         HStack(spacing: expanded ? 12 : 8) {
-            careIconButton(assetName: "icon_food", help: "Dar de comer") {
+            careIconButton(assetName: "icon_food", help: "Dar de comer", blocksWhenHangry: false) {
                 petStats.feed()
             }
-            careIconButton(assetName: "icon_play", help: "Jugar") {
+            careIconButton(assetName: "icon_play", help: "Jugar", blocksWhenHangry: true) {
                 petStats.play()
             }
-            careIconButton(assetName: "icon_hand", help: "Caricia") {
+            careIconButton(assetName: "icon_hand", help: "Caricia", blocksWhenHangry: true) {
                 petStats.stroke()
             }
         }
         .frame(maxWidth: .infinity)
+    }
+
+    private var foodFirstHintBubble: some View {
+        let iconSide: CGFloat = expanded ? 22 : 18
+        return HStack(spacing: 5) {
+            PetArt.image(named: "icon_food")
+                .resizable()
+                .interpolation(.none)
+                .antialiased(false)
+                .scaledToFit()
+                .frame(width: iconSide, height: iconSide)
+            Text("Primero, ¡comida!")
+                .font(.system(size: expanded ? 10 : 9, weight: .bold, design: .rounded))
+                .foregroundStyle(.white.opacity(0.96))
+                .shadow(color: .black.opacity(0.9), radius: 0, x: 1, y: 1)
+        }
+        .padding(.horizontal, 8)
+        .padding(.vertical, 5)
+        .background(
+            RoundedRectangle(cornerRadius: 8, style: .continuous)
+                .fill(Color.black.opacity(0.74))
+        )
+        .overlay(
+            RoundedRectangle(cornerRadius: 8, style: .continuous)
+                .strokeBorder(Color.white.opacity(0.28), lineWidth: 1)
+        )
     }
 
     private var musicDock: some View {
@@ -189,6 +230,7 @@ struct NotchPetView: View {
     }
 
     private var petDisplayKey: String {
+        if petStats.isRefusing { return "refuse" }
         if petStats.isEating { return "eating" }
         if petStats.isPlayAnimating { return "play" }
         if petStats.isStrokeAnimating { return "stroke" }
@@ -210,9 +252,21 @@ struct NotchPetView: View {
         }
     }
 
-    private func careIconButton(assetName: String, help: String, action: @escaping () -> Void) -> some View {
+    private func careIconButton(
+        assetName: String,
+        help: String,
+        blocksWhenHangry: Bool,
+        action: @escaping () -> Void
+    ) -> some View {
         let side: CGFloat = expanded ? 26 : 22
-        return Button(action: action) {
+        let blocked = blocksWhenHangry && petStats.isVeryHungry
+        return Button {
+            if blocked {
+                petStats.beginRefusalAnimation()
+            } else {
+                action()
+            }
+        } label: {
             PetArt.image(named: assetName)
                 .resizable()
                 .interpolation(.none)
@@ -221,22 +275,26 @@ struct NotchPetView: View {
                 .frame(width: side, height: side)
         }
         .buttonStyle(.plain)
-        .help(help)
+        .opacity(blocked ? 0.5 : 1)
+        .help(blocked ? "Primero, ¡comida!" : help)
     }
 
     @ViewBuilder
     private var petSprite: some View {
+        let skin = skinStore.currentSkin
         let box = CGSize(width: petW, height: petH)
-        if petStats.isEating, let url = PetArt.gifURL(named: "pet_eating") {
+        if petStats.isRefusing, let url = PetArt.gifURL(named: skin.refuseGif) {
             gif(url: url, box: box)
-        } else if petStats.isPlayAnimating, let url = PetArt.gifURL(named: "pet_happy_play") {
+        } else if petStats.isEating, let url = PetArt.gifURL(named: skin.eatingGif) {
             gif(url: url, box: box)
-        } else if petStats.isStrokeAnimating, let url = PetArt.gifURL(named: "pet_hand") {
+        } else if petStats.isPlayAnimating, let url = PetArt.gifURL(named: skin.happyPlayGif) {
             gif(url: url, box: box)
-        } else if shouldDance, let url = PetArt.gifURL(named: "pet_happy_dance") {
+        } else if petStats.isStrokeAnimating, let url = PetArt.gifURL(named: skin.strokeGif) {
+            gif(url: url, box: box)
+        } else if shouldDance, let url = PetArt.gifURL(named: skin.danceGif) {
             gif(url: url, box: box)
         } else {
-            PetArt.image(named: petImageName)
+            PetArt.image(named: petImageName(skin: skin))
                 .resizable()
                 .interpolation(.none)
                 .antialiased(false)
@@ -251,11 +309,11 @@ struct NotchPetView: View {
             .clipped()
     }
 
-    private var petImageName: String {
+    private func petImageName(skin: PetSkinDefinition) -> String {
         if petStats.isVeryHungry {
-            return "pet_hungry"
+            return skin.hungryImage
         }
-        return "pet_idle"
+        return skin.idleImage
     }
 }
 
@@ -274,6 +332,7 @@ struct NotchPetView_Previews: PreviewProvider {
             .environmentObject(PetStats())
             .environmentObject(NotchWindowHost())
             .environmentObject(NowPlayingMonitor())
+            .environmentObject(PetSkinStore())
             .frame(width: 360, height: 280)
             .background(Color.black)
     }

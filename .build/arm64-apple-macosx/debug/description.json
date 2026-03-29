@@ -142,6 +142,20 @@
           "name" : "/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi_TamaNotchi.bundle/pet_idle.png"
         }
       ]
+    },
+    "/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi_TamaNotchi.bundle/pet_refuse.gif" : {
+      "inputs" : [
+        {
+          "kind" : "file",
+          "name" : "/Users/aminjoudigueraa/TamaNotchi/TamaNotchi/BundleResources/pet_refuse.gif"
+        }
+      ],
+      "outputs" : [
+        {
+          "kind" : "file",
+          "name" : "/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi_TamaNotchi.bundle/pet_refuse.gif"
+        }
+      ]
     }
   },
   "explicitTargetDependencyImportCheckingMode" : {
@@ -211,6 +225,14 @@
         },
         {
           "kind" : "file",
+          "name" : "/Users/aminjoudigueraa/TamaNotchi/TamaNotchi/PetSkinDefinition.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/aminjoudigueraa/TamaNotchi/TamaNotchi/PetSkinStore.swift"
+        },
+        {
+          "kind" : "file",
           "name" : "/Users/aminjoudigueraa/TamaNotchi/TamaNotchi/PetStats.swift"
         },
         {
@@ -266,6 +288,8 @@
         "/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi.build/NotchPetView.swift.o",
         "/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi.build/NowPlayingMonitor.swift.o",
         "/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi.build/PetArt.swift.o",
+        "/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi.build/PetSkinDefinition.swift.o",
+        "/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi.build/PetSkinStore.swift.o",
         "/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi.build/PetStats.swift.o",
         "/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi.build/PixelCatTemplateIcon.swift.o",
         "/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi.build/SystemMediaRemoteCommands.swift.o",
@@ -376,6 +400,14 @@
         },
         {
           "kind" : "file",
+          "name" : "/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi.build/PetSkinDefinition.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi.build/PetSkinStore.swift.o"
+        },
+        {
+          "kind" : "file",
           "name" : "/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi.build/PetStats.swift.o"
         },
         {
@@ -421,6 +453,8 @@
         "/Users/aminjoudigueraa/TamaNotchi/TamaNotchi/NotchPetView.swift",
         "/Users/aminjoudigueraa/TamaNotchi/TamaNotchi/NowPlayingMonitor.swift",
         "/Users/aminjoudigueraa/TamaNotchi/TamaNotchi/PetArt.swift",
+        "/Users/aminjoudigueraa/TamaNotchi/TamaNotchi/PetSkinDefinition.swift",
+        "/Users/aminjoudigueraa/TamaNotchi/TamaNotchi/PetSkinStore.swift",
         "/Users/aminjoudigueraa/TamaNotchi/TamaNotchi/PetStats.swift",
         "/Users/aminjoudigueraa/TamaNotchi/TamaNotchi/PixelCatTemplateIcon.swift",
         "/Users/aminjoudigueraa/TamaNotchi/TamaNotchi/SystemMediaRemoteCommands.swift",
@@ -456,6 +490,8 @@
       "/Users/aminjoudigueraa/TamaNotchi/TamaNotchi/NotchPetView.swift",
       "/Users/aminjoudigueraa/TamaNotchi/TamaNotchi/NowPlayingMonitor.swift",
       "/Users/aminjoudigueraa/TamaNotchi/TamaNotchi/PetArt.swift",
+      "/Users/aminjoudigueraa/TamaNotchi/TamaNotchi/PetSkinDefinition.swift",
+      "/Users/aminjoudigueraa/TamaNotchi/TamaNotchi/PetSkinStore.swift",
       "/Users/aminjoudigueraa/TamaNotchi/TamaNotchi/PetStats.swift",
       "/Users/aminjoudigueraa/TamaNotchi/TamaNotchi/PixelCatTemplateIcon.swift",
       "/Users/aminjoudigueraa/TamaNotchi/TamaNotchi/SystemMediaRemoteCommands.swift",
@@ -605,6 +641,14 @@
         },
         {
           "kind" : "file",
+          "name" : "/Users/aminjoudigueraa/TamaNotchi/TamaNotchi/PetSkinDefinition.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/aminjoudigueraa/TamaNotchi/TamaNotchi/PetSkinStore.swift"
+        },
+        {
+          "kind" : "file",
           "name" : "/Users/aminjoudigueraa/TamaNotchi/TamaNotchi/PetStats.swift"
         },
         {
@@ -688,6 +732,14 @@
         {
           "kind" : "file",
           "name" : "/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi.build/PetArt.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi.build/PetSkinDefinition.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi.build/PetSkinStore.swift.o"
         },
         {
           "kind" : "file",

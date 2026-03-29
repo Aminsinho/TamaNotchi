@@ -3,6 +3,9 @@ import Foundation
 
 /// Estadísticas de la mascota: decay automático e interacciones (comida / juego / caricias).
 final class PetStats: ObservableObject {
+    /// Por debajo de este valor (hambre en escala 0…100), la mascota está hambrienta y de mal humor.
+    static let hungerHungryThreshold = 20
+
     @Published var hunger: Double = 80
     @Published var happiness: Double = 80
     @Published var lastInteractionAt: Date = .init()
@@ -10,12 +13,17 @@ final class PetStats: ObservableObject {
     @Published private(set) var isEating: Bool = false
     @Published private(set) var isPlayAnimating: Bool = false
     @Published private(set) var isStrokeAnimating: Bool = false
+    @Published private(set) var isRefusing: Bool = false
+    /// Burbuja “Primero, ¡comida!” sobre la mascota (isla).
+    @Published private(set) var showFoodFirstHint: Bool = false
 
     private var hungerTimer: Timer?
     private var happinessTimer: Timer?
     private var eatingReset: AnyCancellable?
     private var playReset: AnyCancellable?
     private var strokeReset: AnyCancellable?
+    private var refuseReset: AnyCancellable?
+    private var foodHintReset: AnyCancellable?
 
     var hungerClamped: Int {
         Int(hunger.rounded().clamped(to: 0...100))
@@ -26,7 +34,7 @@ final class PetStats: ObservableObject {
     }
 
     var isVeryHungry: Bool {
-        hungerClamped < 20
+        hungerClamped < Self.hungerHungryThreshold
     }
 
     var isHappyEnoughForDance: Bool {
@@ -60,6 +68,7 @@ final class PetStats: ObservableObject {
         hunger = min(100, hunger + 28)
         happiness = min(100, happiness + 4)
 
+        cancelRefusalAndHint()
         clearTransientAnimations()
         isEating = true
         eatingReset?.cancel()
@@ -71,6 +80,10 @@ final class PetStats: ObservableObject {
     }
 
     func play() {
+        if isVeryHungry {
+            beginRefusalAnimation()
+            return
+        }
         touchInteraction()
         happiness = min(100, happiness + 22)
         hunger = max(0, hunger - 3)
@@ -86,6 +99,10 @@ final class PetStats: ObservableObject {
     }
 
     func stroke() {
+        if isVeryHungry {
+            beginRefusalAnimation()
+            return
+        }
         touchInteraction()
         happiness = min(100, happiness + 16)
 
@@ -97,6 +114,37 @@ final class PetStats: ObservableObject {
             .sink { [weak self] _ in
                 self?.isStrokeAnimating = false
             }
+    }
+
+    /// Animación `pet_refuse` (~2.5 s) y burbuja de comida; se puede llamar al abrir el panel con hambre o al pulsar Jugar/Caricia bloqueados.
+    func beginRefusalAnimation() {
+        refuseReset?.cancel()
+        isRefusing = true
+        refuseReset = Just(())
+            .delay(for: .seconds(2.5), scheduler: RunLoop.main)
+            .sink { [weak self] _ in
+                self?.isRefusing = false
+            }
+        flashFoodFirstHint()
+    }
+
+    private func flashFoodFirstHint() {
+        showFoodFirstHint = true
+        foodHintReset?.cancel()
+        foodHintReset = Just(())
+            .delay(for: .seconds(2.3), scheduler: RunLoop.main)
+            .sink { [weak self] _ in
+                self?.showFoodFirstHint = false
+            }
+    }
+
+    private func cancelRefusalAndHint() {
+        refuseReset?.cancel()
+        refuseReset = nil
+        isRefusing = false
+        foodHintReset?.cancel()
+        foodHintReset = nil
+        showFoodFirstHint = false
     }
 
     private func clearTransientAnimations() {

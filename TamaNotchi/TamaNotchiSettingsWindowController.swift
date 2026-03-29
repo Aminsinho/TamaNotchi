@@ -5,14 +5,14 @@ import SwiftUI
 final class TamaNotchiSettingsWindowController {
     private var window: NSWindow?
 
-    func show() {
+    func show(skinStore: PetSkinStore) {
         if let window, window.isVisible {
             window.makeKeyAndOrderFront(nil)
             NSApp.activate(ignoringOtherApps: true)
             return
         }
 
-        let root = SettingsRootView()
+        let root = SettingsRootView().environmentObject(skinStore)
         let host = NSHostingController(rootView: root)
         host.title = "TamaNotchi"
 
@@ -33,17 +33,40 @@ final class TamaNotchiSettingsWindowController {
 }
 
 private struct SettingsRootView: View {
+    @EnvironmentObject private var skinStore: PetSkinStore
+
     var body: some View {
         Form {
             Section {
-                Text("Preferencias próximamente.")
+                Picker(
+                    "Apariencia de la mascota",
+                    selection: Binding(
+                        get: { skinStore.selectedSkinId },
+                        set: { skinStore.selectSkin(id: $0) }
+                    )
+                ) {
+                    ForEach(PetSkinDefinition.builtIn) { skin in
+                        Text(skin.displayName).tag(skin.id)
+                    }
+                }
+
+                Text("Para nuevos skins: enlaza PNG/GIF en BundleResources y añade una fila en PetSkinDefinition.builtIn.")
+                    .font(.caption)
+                    .foregroundStyle(.secondary)
+                    .fixedSize(horizontal: false, vertical: true)
+            } header: {
+                Text("Mascota")
+            }
+
+            Section {
+                Text("Más opciones próximamente.")
                     .foregroundStyle(.secondary)
             } header: {
-                Text("TamaNotchi")
+                Text("General")
             }
         }
         .formStyle(.grouped)
         .padding()
-        .frame(minWidth: 340, minHeight: 160)
+        .frame(minWidth: 360, minHeight: 240)
     }
 }
