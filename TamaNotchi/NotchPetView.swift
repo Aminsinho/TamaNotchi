@@ -13,6 +13,7 @@ struct NotchPetView: View {
     private var shouldDance: Bool {
         expanded
             && nowPlaying.isPlaying
+            && !petStats.isVeryHungry
             && !petStats.isEating
             && !petStats.isPlayAnimating
             && !petStats.isStrokeAnimating
@@ -33,9 +34,9 @@ struct NotchPetView: View {
     /// Radio solo en esquinas inferiores (superiores rectas, al ras del notch).
     private var islandBottomCornerRadius: CGFloat { expanded ? 36 : 16 }
 
-    /// Desplaza todo el contenido hacia abajo para equilibrar el área negra.
+    /// Desplaza todo el contenido hacia abajo para equilibrar el área negra (+ extra para bajar mascota, botones y dock).
     private var contentShiftY: CGFloat {
-        NotchWindowMetrics.fullHeight * 0.10
+        NotchWindowMetrics.fullHeight * 0.10 + 15
     }
 
     private var islandMaskShape: UnevenRoundedRectangle {
@@ -87,11 +88,6 @@ struct NotchPetView: View {
         .animation(.spring(response: 0.48, dampingFraction: 0.82), value: expanded)
         .animation(.easeInOut(duration: 0.18), value: petDisplayKey)
         .animation(.easeInOut(duration: 0.2), value: nowPlaying.isPlaying)
-        .onChange(of: expanded) { isRevealed in
-            if isRevealed, petStats.isVeryHungry {
-                petStats.beginRefusalAnimation()
-            }
-        }
     }
 
     private func heroRow(danceBob: CGFloat) -> some View {
@@ -111,11 +107,12 @@ struct NotchPetView: View {
                     .frame(width: petW, height: petH)
                     .offset(y: danceBob)
                     .clipped()
-
-                if petStats.showFoodFirstHint {
-                    foodFirstHintBubble
-                        .offset(y: danceBob - (expanded ? 8 : 6))
-                }
+                    .contentShape(Rectangle())
+                    .onTapGesture {
+                        if petStats.isVeryHungry {
+                            petStats.beginRefusalAnimation()
+                        }
+                    }
             }
             .id("\(skinStore.selectedSkinId)-\(petDisplayKey)")
 
@@ -163,32 +160,6 @@ struct NotchPetView: View {
         .frame(maxWidth: .infinity)
     }
 
-    private var foodFirstHintBubble: some View {
-        let iconSide: CGFloat = expanded ? 22 : 18
-        return HStack(spacing: 5) {
-            PetArt.image(named: "icon_food")
-                .resizable()
-                .interpolation(.none)
-                .antialiased(false)
-                .scaledToFit()
-                .frame(width: iconSide, height: iconSide)
-            Text("Primero, ¡comida!")
-                .font(.system(size: expanded ? 10 : 9, weight: .bold, design: .rounded))
-                .foregroundStyle(.white.opacity(0.96))
-                .shadow(color: .black.opacity(0.9), radius: 0, x: 1, y: 1)
-        }
-        .padding(.horizontal, 8)
-        .padding(.vertical, 5)
-        .background(
-            RoundedRectangle(cornerRadius: 8, style: .continuous)
-                .fill(Color.black.opacity(0.74))
-        )
-        .overlay(
-            RoundedRectangle(cornerRadius: 8, style: .continuous)
-                .strokeBorder(Color.white.opacity(0.28), lineWidth: 1)
-        )
-    }
-
     private var musicDock: some View {
         VStack(alignment: .leading, spacing: expanded ? 5 : 3) {
             MarqueeTitleView(
@@ -229,6 +200,7 @@ struct NotchPetView: View {
         .help(help)
     }
 
+    /// Prioridad: negación > comer > juego > caricia > baile (bloqueado si hambre) > hambre estática > idle.
     private var petDisplayKey: String {
         if petStats.isRefusing { return "refuse" }
         if petStats.isEating { return "eating" }
@@ -260,23 +232,42 @@ struct NotchPetView: View {
     ) -> some View {
         let side: CGFloat = expanded ? 26 : 22
         let blocked = blocksWhenHangry && petStats.isVeryHungry
-        return Button {
+        let icon = PetArt.image(named: assetName)
+            .resizable()
+            .interpolation(.none)
+            .antialiased(false)
+            .scaledToFit()
+            .frame(width: side, height: side)
+
+        return Group {
             if blocked {
-                petStats.beginRefusalAnimation()
+                ZStack {
+                    Button(action: {}) {
+                        icon
+                    }
+                    .buttonStyle(.plain)
+                    .disabled(true)
+                    .opacity(0.5)
+
+                    Button {
+                        petStats.beginRefusalAnimation()
+                    } label: {
+                        Color.clear
+                            .frame(width: side, height: side)
+                            .contentShape(Rectangle())
+                    }
+                    .buttonStyle(.plain)
+                }
             } else {
-                action()
+                Button(action: action) {
+                    icon
+                        .scaleEffect(assetName == "icon_food" && petStats.isVeryHungry ? 1.08 : 1)
+                        .brightness(assetName == "icon_food" && petStats.isVeryHungry ? 0.06 : 0)
+                }
+                .buttonStyle(.plain)
+                .help(help)
             }
-        } label: {
-            PetArt.image(named: assetName)
-                .resizable()
-                .interpolation(.none)
-                .antialiased(false)
-                .scaledToFit()
-                .frame(width: side, height: side)
         }
-        .buttonStyle(.plain)
-        .opacity(blocked ? 0.5 : 1)
-        .help(blocked ? "Primero, ¡comida!" : help)
     }
 
     @ViewBuilder
