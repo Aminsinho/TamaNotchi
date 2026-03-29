@@ -1,6 +1,6 @@
 import SwiftUI
 
-/// Isla a la derecha del notch: música siempre visible, mascota y cuidados compactos.
+/// Dynamic Island: mascota central, estadísticas a los lados, música abajo, cuidados entre medias.
 struct NotchPetView: View {
     @EnvironmentObject private var petStats: PetStats
     @EnvironmentObject private var notchHost: NotchWindowHost
@@ -8,11 +8,10 @@ struct NotchPetView: View {
 
     private var expanded: Bool { notchHost.isRevealed }
 
+    /// Baile en bucle mientras el Media Center reporta reproducción (`MPNowPlayingInfoCenter`).
     private var shouldDance: Bool {
         expanded
             && nowPlaying.isPlaying
-            && petStats.isHappyEnoughForDance
-            && !petStats.isVeryHungry
             && !petStats.isEating
             && !petStats.isPlayAnimating
             && !petStats.isStrokeAnimating
@@ -26,72 +25,167 @@ struct NotchPetView: View {
         expanded ? NotchWindowMetrics.petLogicalHeight : NotchWindowMetrics.petPeekHeight
     }
 
-    private var miniStatFont: CGFloat { expanded ? 10 : 9 }
-    private var miniStatIcon: CGFloat { expanded ? 10 : 8 }
+    private var statFont: CGFloat { expanded ? 11 : 9 }
+    private var statIcon: CGFloat { expanded ? 11 : 9 }
+
+    /// Radio solo en esquinas inferiores (superiores rectas, al ras del notch).
+    private var islandBottomCornerRadius: CGFloat { expanded ? 36 : 16 }
+
+    /// Desplaza todo el contenido hacia abajo para equilibrar el área negra.
+    private var contentShiftY: CGFloat {
+        NotchWindowMetrics.fullHeight * 0.10
+    }
+
+    private var islandMaskShape: UnevenRoundedRectangle {
+        UnevenRoundedRectangle(
+            cornerRadii: RectangleCornerRadii(
+                topLeading: 0,
+                bottomLeading: islandBottomCornerRadius,
+                bottomTrailing: islandBottomCornerRadius,
+                topTrailing: 0
+            ),
+            style: .continuous
+        )
+    }
 
     var body: some View {
-        TimelineView(.animation(minimumInterval: 1.0 / 24.0, paused: !petStats.isVeryHungry)) { context in
+        TimelineView(.animation(minimumInterval: 1.0 / 36.0)) { context in
+            let t = context.date.timeIntervalSinceReferenceDate
             let shake: CGFloat = petStats.isVeryHungry
-                ? CGFloat(sin(context.date.timeIntervalSinceReferenceDate * 13)) * 2.3
+                ? CGFloat(sin(t * 13)) * 2.3
+                : 0
+            let danceBob: CGFloat = shouldDance
+                ? CGFloat(sin(t * Double.pi * 2 * 2.15)) * 4.5
                 : 0
 
-            ZStack(alignment: .bottom) {
-                Color.clear
-                islandChrome
-                    .offset(x: shake)
+            ZStack(alignment: .top) {
+                islandMaskShape
+                    .fill(Color.black)
+                islandChrome(danceBob: danceBob)
+                    .offset(x: shake, y: contentShiftY)
             }
             .frame(
                 width: NotchWindowMetrics.windowWidth,
                 height: NotchWindowMetrics.fullHeight,
-                alignment: .bottom
+                alignment: .top
             )
+            .clipShape(islandMaskShape)
         }
     }
 
-    private var islandChrome: some View {
-        VStack(spacing: expanded ? 6 : 4) {
-            musicBar
+    private func islandChrome(danceBob: CGFloat) -> some View {
+        VStack(spacing: expanded ? 7 : 5) {
+            heroRow(danceBob: danceBob)
 
-            petSprite
-                .frame(width: petW, height: petH)
-                .clipped()
+            careActionsRow
 
-            careAndStatsBar
+            musicDock
         }
         .padding(.horizontal, expanded ? 12 : 8)
-        .padding(.top, expanded ? 10 : 6)
-        .padding(.bottom, expanded ? 9 : 6)
-        .background {
-            RoundedRectangle(cornerRadius: expanded ? 36 : 16, style: .continuous)
-                .fill(
-                    LinearGradient(
-                        colors: [
-                            Color(white: 0.1),
-                            Color(white: 0.06),
-                        ],
-                        startPoint: .top,
-                        endPoint: .bottom
-                    )
-                )
-                .overlay {
-                    RoundedRectangle(cornerRadius: expanded ? 36 : 16, style: .continuous)
-                        .strokeBorder(
-                            LinearGradient(
-                                colors: [
-                                    Color.white.opacity(0.22),
-                                    Color.white.opacity(0.05),
-                                ],
-                                startPoint: .top,
-                                endPoint: .bottom
-                            ),
-                            lineWidth: 1
-                        )
-                }
-        }
-        .clipShape(RoundedRectangle(cornerRadius: expanded ? 36 : 16, style: .continuous))
         .animation(.spring(response: 0.48, dampingFraction: 0.82), value: expanded)
         .animation(.easeInOut(duration: 0.18), value: petDisplayKey)
         .animation(.easeInOut(duration: 0.2), value: nowPlaying.isPlaying)
+    }
+
+    private func heroRow(danceBob: CGFloat) -> some View {
+        HStack(alignment: .center, spacing: expanded ? 6 : 4) {
+            statSideColumn(
+                icon: "leaf.fill",
+                value: petStats.hungerClamped,
+                tint: Color.mint.opacity(0.95),
+                alignment: .leading
+            )
+            .frame(width: expanded ? 44 : 36, alignment: .leading)
+
+            Spacer(minLength: 2)
+
+            petSprite
+                .frame(width: petW, height: petH)
+                .offset(y: danceBob)
+                .clipped()
+
+            Spacer(minLength: 2)
+
+            statSideColumn(
+                icon: "heart.fill",
+                value: petStats.happinessClamped,
+                tint: Color.pink.opacity(0.95),
+                alignment: .trailing
+            )
+            .frame(width: expanded ? 44 : 36, alignment: .trailing)
+        }
+    }
+
+    private func statSideColumn(
+        icon: String,
+        value: Int,
+        tint: Color,
+        alignment: HorizontalAlignment
+    ) -> some View {
+        VStack(alignment: alignment == .leading ? .leading : .trailing, spacing: 2) {
+            Image(systemName: icon)
+                .font(.system(size: statIcon, weight: .semibold))
+                .foregroundStyle(tint)
+            Text("\(value)")
+                .font(.system(size: statFont, weight: .bold, design: .rounded))
+                .monospacedDigit()
+                .foregroundStyle(.white.opacity(0.92))
+        }
+    }
+
+    private var careActionsRow: some View {
+        HStack(spacing: expanded ? 12 : 8) {
+            careIconButton(assetName: "icon_food", help: "Dar de comer") {
+                petStats.feed()
+            }
+            careIconButton(assetName: "icon_play", help: "Jugar") {
+                petStats.play()
+            }
+            careIconButton(assetName: "icon_hand", help: "Caricia") {
+                petStats.stroke()
+            }
+        }
+        .frame(maxWidth: .infinity)
+    }
+
+    private var musicDock: some View {
+        VStack(alignment: .leading, spacing: expanded ? 5 : 3) {
+            MarqueeTitleView(
+                text: trackTitleLine,
+                fontSize: expanded ? 8 : 7,
+                cycleSeconds: 10
+            )
+            .frame(height: expanded ? 12 : 10)
+
+            HStack(spacing: expanded ? 14 : 10) {
+                Spacer(minLength: 0)
+                pixelMediaButton(label: "⏮", help: "Anterior") {
+                    MediaHardwareKey.previousTrack.send()
+                    scheduleMediaRefresh()
+                }
+                pixelMediaButton(label: nowPlaying.isPlaying ? "❚❚" : "▶", help: nowPlaying.isPlaying ? "Pausar" : "Reproducir") {
+                    MediaPlayPauseKey.send()
+                    scheduleMediaRefresh()
+                }
+                pixelMediaButton(label: "⏭", help: "Siguiente") {
+                    MediaHardwareKey.nextTrack.send()
+                    scheduleMediaRefresh()
+                }
+                Spacer(minLength: 0)
+            }
+        }
+    }
+
+    private func pixelMediaButton(label: String, help: String, action: @escaping () -> Void) -> some View {
+        Button(action: action) {
+            Text(label)
+                .font(.system(size: expanded ? 11 : 10, weight: .heavy, design: .monospaced))
+                .foregroundStyle(.white.opacity(0.92))
+                .frame(minWidth: expanded ? 28 : 24, minHeight: expanded ? 22 : 18)
+                .contentShape(Rectangle())
+        }
+        .buttonStyle(PixelTapButtonStyle())
+        .help(help)
     }
 
     private var petDisplayKey: String {
@@ -110,90 +204,9 @@ struct NotchPetView: View {
         return nowPlaying.isPlaying ? "Reproduciendo…" : "Sin música"
     }
 
-    private var musicBar: some View {
-        HStack(spacing: expanded ? 8 : 4) {
-            Image(systemName: "waveform")
-                .font(.system(size: expanded ? 12 : 10, weight: .semibold))
-                .foregroundStyle(.white.opacity(0.9))
-
-            Text(trackTitleLine)
-                .font(.system(size: expanded ? 11 : 9, weight: .medium))
-                .foregroundStyle(.white.opacity(0.88))
-                .lineLimit(1)
-                .truncationMode(.tail)
-
-            Spacer(minLength: 2)
-
-            mediaIconButton(systemName: "backward.fill", help: "Canción anterior") {
-                MediaHardwareKey.previousTrack.send()
-                scheduleMediaRefresh()
-            }
-
-            mediaIconButton(
-                systemName: nowPlaying.isPlaying ? "pause.fill" : "play.fill",
-                help: nowPlaying.isPlaying ? "Pausar" : "Reproducir"
-            ) {
-                MediaPlayPauseKey.send()
-                scheduleMediaRefresh()
-            }
-
-            mediaIconButton(systemName: "forward.fill", help: "Siguiente canción") {
-                MediaHardwareKey.nextTrack.send()
-                scheduleMediaRefresh()
-            }
-        }
-        .foregroundStyle(.white)
-    }
-
-    private func mediaIconButton(systemName: String, help: String, action: @escaping () -> Void) -> some View {
-        Button(action: action) {
-            Image(systemName: systemName)
-                .font(.system(size: expanded ? 14 : 12, weight: .semibold))
-                .frame(minWidth: 26, minHeight: 22)
-                .contentShape(Rectangle())
-        }
-        .buttonStyle(.plain)
-        .foregroundStyle(.white)
-        .help(help)
-    }
-
     private func scheduleMediaRefresh() {
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.45) {
             nowPlaying.refreshAll()
-        }
-    }
-
-    private var careAndStatsBar: some View {
-        HStack(spacing: expanded ? 8 : 5) {
-            HStack(spacing: 3) {
-                Image(systemName: "leaf.fill")
-                    .font(.system(size: miniStatIcon))
-                Text("\(petStats.hungerClamped)")
-                    .font(.system(size: miniStatFont, weight: .semibold, design: .rounded))
-                    .monospacedDigit()
-            }
-            .foregroundStyle(.mint.opacity(0.95))
-
-            HStack(spacing: 3) {
-                Image(systemName: "heart.fill")
-                    .font(.system(size: miniStatIcon))
-                Text("\(petStats.happinessClamped)")
-                    .font(.system(size: miniStatFont, weight: .semibold, design: .rounded))
-                    .monospacedDigit()
-            }
-            .foregroundStyle(.pink.opacity(0.95))
-
-            Spacer(minLength: 2)
-
-            careIconButton(assetName: "icon_food", help: "Dar de comer") {
-                petStats.feed()
-            }
-            careIconButton(assetName: "icon_play", help: "Jugar") {
-                petStats.play()
-            }
-            careIconButton(assetName: "icon_hand", help: "Caricia") {
-                petStats.stroke()
-            }
         }
     }
 
@@ -246,6 +259,14 @@ struct NotchPetView: View {
     }
 }
 
+private struct PixelTapButtonStyle: ButtonStyle {
+    func makeBody(configuration: Configuration) -> some View {
+        configuration.label
+            .opacity(configuration.isPressed ? 0.45 : 1)
+            .scaleEffect(configuration.isPressed ? 0.88 : 1)
+    }
+}
+
 #if DEBUG
 struct NotchPetView_Previews: PreviewProvider {
     static var previews: some View {
@@ -254,7 +275,7 @@ struct NotchPetView_Previews: PreviewProvider {
             .environmentObject(NotchWindowHost())
             .environmentObject(NowPlayingMonitor())
             .frame(width: 360, height: 280)
-            .background(Color.gray.opacity(0.25))
+            .background(Color.black)
     }
 }
 #endif

@@ -171,15 +171,23 @@
         },
         {
           "kind" : "file",
-          "name" : "/Users/aminjoudigueraa/TamaNotchi/TamaNotchi/AppleScriptMediaProbe.swift"
-        },
-        {
-          "kind" : "file",
           "name" : "/Users/aminjoudigueraa/TamaNotchi/TamaNotchi/CarePopoverView.swift"
         },
         {
           "kind" : "file",
+          "name" : "/Users/aminjoudigueraa/TamaNotchi/TamaNotchi/MarqueeTitleView.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/aminjoudigueraa/TamaNotchi/TamaNotchi/MediaAppleScriptReader.swift"
+        },
+        {
+          "kind" : "file",
           "name" : "/Users/aminjoudigueraa/TamaNotchi/TamaNotchi/MediaKeyControl.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/aminjoudigueraa/TamaNotchi/TamaNotchi/MediaRemoteNowPlayingFetcher.swift"
         },
         {
           "kind" : "file",
@@ -200,6 +208,10 @@
         {
           "kind" : "file",
           "name" : "/Users/aminjoudigueraa/TamaNotchi/TamaNotchi/PetStats.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/aminjoudigueraa/TamaNotchi/TamaNotchi/SystemMediaRemoteCommands.swift"
         },
         {
           "kind" : "file",
@@ -232,14 +244,17 @@
       "objects" : [
         "/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi.build/AnimatedGifRepresentable.swift.o",
         "/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi.build/AppDelegate.swift.o",
-        "/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi.build/AppleScriptMediaProbe.swift.o",
         "/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi.build/CarePopoverView.swift.o",
+        "/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi.build/MarqueeTitleView.swift.o",
+        "/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi.build/MediaAppleScriptReader.swift.o",
         "/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi.build/MediaKeyControl.swift.o",
+        "/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi.build/MediaRemoteNowPlayingFetcher.swift.o",
         "/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi.build/NotchKeyWindow.swift.o",
         "/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi.build/NotchPetView.swift.o",
         "/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi.build/NowPlayingMonitor.swift.o",
         "/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi.build/PetArt.swift.o",
         "/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi.build/PetStats.swift.o",
+        "/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi.build/SystemMediaRemoteCommands.swift.o",
         "/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi.build/TamaNotchiApp.swift.o",
         "/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi.build/TamaNotchiBootstrap.swift.o",
         "/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi.build/resource_bundle_accessor.swift.o"
@@ -306,15 +321,23 @@
         },
         {
           "kind" : "file",
-          "name" : "/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi.build/AppleScriptMediaProbe.swift.o"
-        },
-        {
-          "kind" : "file",
           "name" : "/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi.build/CarePopoverView.swift.o"
         },
         {
           "kind" : "file",
+          "name" : "/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi.build/MarqueeTitleView.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi.build/MediaAppleScriptReader.swift.o"
+        },
+        {
+          "kind" : "file",
           "name" : "/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi.build/MediaKeyControl.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi.build/MediaRemoteNowPlayingFetcher.swift.o"
         },
         {
           "kind" : "file",
@@ -338,6 +361,10 @@
         },
         {
           "kind" : "file",
+          "name" : "/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi.build/SystemMediaRemoteCommands.swift.o"
+        },
+        {
+          "kind" : "file",
           "name" : "/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi.build/TamaNotchiApp.swift.o"
         },
         {
@@ -357,14 +384,17 @@
       "sources" : [
         "/Users/aminjoudigueraa/TamaNotchi/TamaNotchi/AnimatedGifRepresentable.swift",
         "/Users/aminjoudigueraa/TamaNotchi/TamaNotchi/AppDelegate.swift",
-        "/Users/aminjoudigueraa/TamaNotchi/TamaNotchi/AppleScriptMediaProbe.swift",
         "/Users/aminjoudigueraa/TamaNotchi/TamaNotchi/CarePopoverView.swift",
+        "/Users/aminjoudigueraa/TamaNotchi/TamaNotchi/MarqueeTitleView.swift",
+        "/Users/aminjoudigueraa/TamaNotchi/TamaNotchi/MediaAppleScriptReader.swift",
         "/Users/aminjoudigueraa/TamaNotchi/TamaNotchi/MediaKeyControl.swift",
+        "/Users/aminjoudigueraa/TamaNotchi/TamaNotchi/MediaRemoteNowPlayingFetcher.swift",
         "/Users/aminjoudigueraa/TamaNotchi/TamaNotchi/NotchKeyWindow.swift",
         "/Users/aminjoudigueraa/TamaNotchi/TamaNotchi/NotchPetView.swift",
         "/Users/aminjoudigueraa/TamaNotchi/TamaNotchi/NowPlayingMonitor.swift",
         "/Users/aminjoudigueraa/TamaNotchi/TamaNotchi/PetArt.swift",
         "/Users/aminjoudigueraa/TamaNotchi/TamaNotchi/PetStats.swift",
+        "/Users/aminjoudigueraa/TamaNotchi/TamaNotchi/SystemMediaRemoteCommands.swift",
         "/Users/aminjoudigueraa/TamaNotchi/TamaNotchi/TamaNotchiApp.swift",
         "/Users/aminjoudigueraa/TamaNotchi/TamaNotchi/TamaNotchiBootstrap.swift",
         "/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi.build/DerivedSources/resource_bundle_accessor.swift"
@@ -386,14 +416,17 @@
       "-c",
       "/Users/aminjoudigueraa/TamaNotchi/TamaNotchi/AnimatedGifRepresentable.swift",
       "/Users/aminjoudigueraa/TamaNotchi/TamaNotchi/AppDelegate.swift",
-      "/Users/aminjoudigueraa/TamaNotchi/TamaNotchi/AppleScriptMediaProbe.swift",
       "/Users/aminjoudigueraa/TamaNotchi/TamaNotchi/CarePopoverView.swift",
+      "/Users/aminjoudigueraa/TamaNotchi/TamaNotchi/MarqueeTitleView.swift",
+      "/Users/aminjoudigueraa/TamaNotchi/TamaNotchi/MediaAppleScriptReader.swift",
       "/Users/aminjoudigueraa/TamaNotchi/TamaNotchi/MediaKeyControl.swift",
+      "/Users/aminjoudigueraa/TamaNotchi/TamaNotchi/MediaRemoteNowPlayingFetcher.swift",
       "/Users/aminjoudigueraa/TamaNotchi/TamaNotchi/NotchKeyWindow.swift",
       "/Users/aminjoudigueraa/TamaNotchi/TamaNotchi/NotchPetView.swift",
       "/Users/aminjoudigueraa/TamaNotchi/TamaNotchi/NowPlayingMonitor.swift",
       "/Users/aminjoudigueraa/TamaNotchi/TamaNotchi/PetArt.swift",
       "/Users/aminjoudigueraa/TamaNotchi/TamaNotchi/PetStats.swift",
+      "/Users/aminjoudigueraa/TamaNotchi/TamaNotchi/SystemMediaRemoteCommands.swift",
       "/Users/aminjoudigueraa/TamaNotchi/TamaNotchi/TamaNotchiApp.swift",
       "/Users/aminjoudigueraa/TamaNotchi/TamaNotchi/TamaNotchiBootstrap.swift",
       "/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi.build/DerivedSources/resource_bundle_accessor.swift",
@@ -499,15 +532,23 @@
         },
         {
           "kind" : "file",
-          "name" : "/Users/aminjoudigueraa/TamaNotchi/TamaNotchi/AppleScriptMediaProbe.swift"
-        },
-        {
-          "kind" : "file",
           "name" : "/Users/aminjoudigueraa/TamaNotchi/TamaNotchi/CarePopoverView.swift"
         },
         {
           "kind" : "file",
+          "name" : "/Users/aminjoudigueraa/TamaNotchi/TamaNotchi/MarqueeTitleView.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/aminjoudigueraa/TamaNotchi/TamaNotchi/MediaAppleScriptReader.swift"
+        },
+        {
+          "kind" : "file",
           "name" : "/Users/aminjoudigueraa/TamaNotchi/TamaNotchi/MediaKeyControl.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/aminjoudigueraa/TamaNotchi/TamaNotchi/MediaRemoteNowPlayingFetcher.swift"
         },
         {
           "kind" : "file",
@@ -528,6 +569,10 @@
         {
           "kind" : "file",
           "name" : "/Users/aminjoudigueraa/TamaNotchi/TamaNotchi/PetStats.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/aminjoudigueraa/TamaNotchi/TamaNotchi/SystemMediaRemoteCommands.swift"
         },
         {
           "kind" : "file",
@@ -561,15 +606,23 @@
         },
         {
           "kind" : "file",
-          "name" : "/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi.build/AppleScriptMediaProbe.swift.o"
-        },
-        {
-          "kind" : "file",
           "name" : "/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi.build/CarePopoverView.swift.o"
         },
         {
           "kind" : "file",
+          "name" : "/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi.build/MarqueeTitleView.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi.build/MediaAppleScriptReader.swift.o"
+        },
+        {
+          "kind" : "file",
           "name" : "/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi.build/MediaKeyControl.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi.build/MediaRemoteNowPlayingFetcher.swift.o"
         },
         {
           "kind" : "file",
@@ -590,6 +643,10 @@
         {
           "kind" : "file",
           "name" : "/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi.build/PetStats.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi.build/SystemMediaRemoteCommands.swift.o"
         },
         {
           "kind" : "file",
