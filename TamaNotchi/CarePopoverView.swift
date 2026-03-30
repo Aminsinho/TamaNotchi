@@ -12,7 +12,19 @@ struct CarePopoverView: View {
             Text("Cuidar")
                 .font(.headline)
 
-            HStack(spacing: 14) {
+            if let hint = petStats.refusalHint, !hint.isEmpty {
+                Text(hint)
+                    .font(.caption.weight(.semibold))
+                    .foregroundStyle(.secondary)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .padding(8)
+                    .background(
+                        RoundedRectangle(cornerRadius: 8, style: .continuous)
+                            .fill(Color.secondary.opacity(0.12))
+                    )
+            }
+
+            HStack(spacing: 21) {
                 foodCareButton
                 blockedCareButton(title: "Jugar") {
                     PetArt.image(named: "icon_play")
@@ -31,33 +43,65 @@ struct CarePopoverView: View {
 
             Divider().padding(.vertical, 2)
 
-            HStack {
-                Label("Hambre: \(petStats.hungerClamped)", systemImage: "leaf")
-                Spacer()
-                Label("Ánimo: \(petStats.happinessClamped)", systemImage: "heart")
+            VStack(alignment: .leading, spacing: 10) {
+                popoverStatBar(
+                    title: "Energía",
+                    systemImage: "leaf.fill",
+                    value: petStats.hunger,
+                    tint: .mint
+                )
+                popoverStatBar(
+                    title: "Vida",
+                    systemImage: "heart.fill",
+                    value: petStats.happiness,
+                    tint: .pink
+                )
             }
-            .font(.caption)
-            .foregroundStyle(.secondary)
         }
         .padding(14)
-        .frame(minWidth: 240)
+        .frame(minWidth: 400)
+    }
+
+    private func popoverStatBar(title: String, systemImage: String, value: Double, tint: Color) -> some View {
+        VStack(alignment: .leading, spacing: 4) {
+            HStack(spacing: 6) {
+                Image(systemName: systemImage)
+                    .foregroundStyle(tint)
+                    .imageScale(.small)
+                Text(title)
+                    .font(.caption.weight(.medium))
+                    .foregroundStyle(.primary)
+            }
+            GeometryReader { geo in
+                StatBarView(
+                    value: value,
+                    tint: tint,
+                    width: max(1, geo.size.width),
+                    height: 7,
+                    growDirection: .fromLeading
+                )
+            }
+            .frame(height: 7)
+        }
+        .accessibilityElement(children: .combine)
     }
 
     private var foodCareButton: some View {
         Button {
-            petStats.feed()
-            isPresented = false
+            if petStats.feed() {
+                isPresented = false
+            }
         } label: {
-            VStack(spacing: 6) {
+            VStack(spacing: 9) {
                 PetArt.image(named: "icon_food")
                     .resizable()
                     .interpolation(.none)
                     .scaledToFit()
-                    .frame(width: 36, height: 36)
+                    .frame(width: 54, height: 54)
                 Text("Comida")
-                    .font(.caption2)
+                    .font(.caption.weight(.medium))
             }
-            .frame(width: 72, height: 72)
+            .frame(width: 108, height: 108)
             .scaleEffect(hangry ? 1.08 : 1)
             .brightness(hangry ? 0.06 : 0)
         }
@@ -70,16 +114,16 @@ struct CarePopoverView: View {
         @ViewBuilder image: () -> Image,
         primaryAction: @escaping () -> Void
     ) -> some View {
-        let label = VStack(spacing: 6) {
+        let label = VStack(spacing: 9) {
             image()
                 .resizable()
                 .interpolation(.none)
                 .scaledToFit()
-                .frame(width: 36, height: 36)
+                .frame(width: 54, height: 54)
             Text(title)
-                .font(.caption2)
+                .font(.caption.weight(.medium))
         }
-        .frame(width: 72, height: 72)
+        .frame(width: 108, height: 108)
 
         return Group {
             if hangry {
@@ -92,10 +136,10 @@ struct CarePopoverView: View {
                     .opacity(0.5)
 
                     Button {
-                        petStats.beginRefusalAnimation()
+                        petStats.beginRefusalAnimation(hint: PetStats.refusalHintWhenHungry)
                     } label: {
                         Color.clear
-                            .frame(width: 72, height: 72)
+                            .frame(width: 108, height: 108)
                             .contentShape(Rectangle())
                     }
                     .buttonStyle(.plain)

@@ -7,10 +7,11 @@ enum NotchWindowMetrics {
     /// Altura cuando está recogido: franja bajo el notch (ancho completo `windowWidth`).
     static let collapsedUnderNotchHeight: CGFloat = 10
     static let fullHeight: CGFloat = 256
-    static let petLogicalWidth: CGFloat = 108
-    static let petLogicalHeight: CGFloat = 108
-    static let petPeekWidth: CGFloat = 64
-    static let petPeekHeight: CGFloat = 64
+    /// Mascota ~15 % más estrecha que el tamaño base (ancho y alto × 0.85).
+    static let petLogicalWidth: CGFloat = 91.8
+    static let petLogicalHeight: CGFloat = 91.8
+    static let petPeekWidth: CGFloat = 54.4
+    static let petPeekHeight: CGFloat = 54.4
     static let hotZoneWidth: CGFloat = 280
     static let hotZoneHeight: CGFloat = 56
     /// Franja superior central (solo cuando la isla está oculta) para deslizarla de nuevo.
@@ -88,6 +89,8 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
 
     private let menuBarExtra = MenuBarExtraCoordinator()
     private let settingsWindowController = TamaNotchiSettingsWindowController()
+    private var workspaceWakeObserver: NSObjectProtocol?
+    private var appBecameActiveObserver: NSObjectProtocol?
 
     /// La ventana está `orderOut` tras animación genio.
     private var isGenieHidden = false
@@ -115,6 +118,21 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         setupNotchWindow()
         startMouseProximityPolling()
         installMenuBarExtra()
+
+        workspaceWakeObserver = NSWorkspace.shared.notificationCenter.addObserver(
+            forName: NSWorkspace.didWakeNotification,
+            object: nil,
+            queue: .main
+        ) { [weak self] _ in
+            self?.petStats.synchronizeWallClockDecay()
+        }
+        appBecameActiveObserver = NotificationCenter.default.addObserver(
+            forName: NSApplication.didBecomeActiveNotification,
+            object: nil,
+            queue: .main
+        ) { [weak self] _ in
+            self?.petStats.synchronizeWallClockDecay()
+        }
 
         NSApp.activate(ignoringOtherApps: true)
     }
@@ -148,7 +166,14 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     }
 
     func applicationWillTerminate(_ notification: Notification) {
+        if let workspaceWakeObserver {
+            NSWorkspace.shared.notificationCenter.removeObserver(workspaceWakeObserver)
+        }
+        if let appBecameActiveObserver {
+            NotificationCenter.default.removeObserver(appBecameActiveObserver)
+        }
         mousePollTimer?.invalidate()
+        petStats.persistStatsForShutdown()
         petStats.stopLifecycleTimers()
     }
 

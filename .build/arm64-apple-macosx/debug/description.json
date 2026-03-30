@@ -101,6 +101,20 @@
         }
       ]
     },
+    "/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi_TamaNotchi.bundle/pet_happy_dance_2.gif" : {
+      "inputs" : [
+        {
+          "kind" : "file",
+          "name" : "/Users/aminjoudigueraa/TamaNotchi/TamaNotchi/BundleResources/pet_happy_dance_2.gif"
+        }
+      ],
+      "outputs" : [
+        {
+          "kind" : "file",
+          "name" : "/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi_TamaNotchi.bundle/pet_happy_dance_2.gif"
+        }
+      ]
+    },
     "/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi_TamaNotchi.bundle/pet_happy_play.gif" : {
       "inputs" : [
         {
@@ -241,6 +255,10 @@
         },
         {
           "kind" : "file",
+          "name" : "/Users/aminjoudigueraa/TamaNotchi/TamaNotchi/StatBarView.swift"
+        },
+        {
+          "kind" : "file",
           "name" : "/Users/aminjoudigueraa/TamaNotchi/TamaNotchi/SystemMediaRemoteCommands.swift"
         },
         {
@@ -292,6 +310,7 @@
         "/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi.build/PetSkinStore.swift.o",
         "/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi.build/PetStats.swift.o",
         "/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi.build/PixelCatTemplateIcon.swift.o",
+        "/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi.build/StatBarView.swift.o",
         "/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi.build/SystemMediaRemoteCommands.swift.o",
         "/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi.build/TamaNotchiApp.swift.o",
         "/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi.build/TamaNotchiBootstrap.swift.o",
@@ -416,6 +435,10 @@
         },
         {
           "kind" : "file",
+          "name" : "/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi.build/StatBarView.swift.o"
+        },
+        {
+          "kind" : "file",
           "name" : "/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi.build/SystemMediaRemoteCommands.swift.o"
         },
         {
@@ -457,6 +480,7 @@
         "/Users/aminjoudigueraa/TamaNotchi/TamaNotchi/PetSkinStore.swift",
         "/Users/aminjoudigueraa/TamaNotchi/TamaNotchi/PetStats.swift",
         "/Users/aminjoudigueraa/TamaNotchi/TamaNotchi/PixelCatTemplateIcon.swift",
+        "/Users/aminjoudigueraa/TamaNotchi/TamaNotchi/StatBarView.swift",
         "/Users/aminjoudigueraa/TamaNotchi/TamaNotchi/SystemMediaRemoteCommands.swift",
         "/Users/aminjoudigueraa/TamaNotchi/TamaNotchi/TamaNotchiApp.swift",
         "/Users/aminjoudigueraa/TamaNotchi/TamaNotchi/TamaNotchiBootstrap.swift",
@@ -494,6 +518,7 @@
       "/Users/aminjoudigueraa/TamaNotchi/TamaNotchi/PetSkinStore.swift",
       "/Users/aminjoudigueraa/TamaNotchi/TamaNotchi/PetStats.swift",
       "/Users/aminjoudigueraa/TamaNotchi/TamaNotchi/PixelCatTemplateIcon.swift",
+      "/Users/aminjoudigueraa/TamaNotchi/TamaNotchi/StatBarView.swift",
       "/Users/aminjoudigueraa/TamaNotchi/TamaNotchi/SystemMediaRemoteCommands.swift",
       "/Users/aminjoudigueraa/TamaNotchi/TamaNotchi/TamaNotchiApp.swift",
       "/Users/aminjoudigueraa/TamaNotchi/TamaNotchi/TamaNotchiBootstrap.swift",
@@ -657,6 +682,10 @@
         },
         {
           "kind" : "file",
+          "name" : "/Users/aminjoudigueraa/TamaNotchi/TamaNotchi/StatBarView.swift"
+        },
+        {
+          "kind" : "file",
           "name" : "/Users/aminjoudigueraa/TamaNotchi/TamaNotchi/SystemMediaRemoteCommands.swift"
         },
         {
@@ -748,6 +777,10 @@
         {
           "kind" : "file",
           "name" : "/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi.build/PixelCatTemplateIcon.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi.build/StatBarView.swift.o"
         },
         {
           "kind" : "file",

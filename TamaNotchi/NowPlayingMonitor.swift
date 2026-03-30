@@ -39,10 +39,13 @@ private final class DistributedPlaybackNotifier: NSObject {
 final class NowPlayingMonitor: ObservableObject {
     @Published private(set) var isPlaying: Bool = false
     @Published private(set) var trackTitle: String?
+    /// Alterna el GIF de baile cada vez que cambia la pista (título distinto).
+    @Published private(set) var danceGifUsesAlternate: Bool = false
 
     private var poll: AnyCancellable?
     private var refreshGeneration: UInt64 = 0
     private let distributedPlayback = DistributedPlaybackNotifier()
+    private var lastNonEmptyTrackLine: String?
 
     init() {
         distributedPlayback.onEvent = { [weak self] in
@@ -98,7 +101,9 @@ final class NowPlayingMonitor: ObservableObject {
 
     private func applySnapshot(_ s: MediaSnapshot) {
         if trackTitle != s.line {
+            let old = trackTitle
             trackTitle = s.line
+            onTrackLineChanged(from: old, to: s.line)
         }
         if isPlaying != s.isPlaying {
             isPlaying = s.isPlaying
@@ -107,7 +112,9 @@ final class NowPlayingMonitor: ObservableObject {
 
     private func applyParsedMediaRemote(_ p: ParsedMediaRemote) {
         if trackTitle != p.line {
+            let old = trackTitle
             trackTitle = p.line
+            onTrackLineChanged(from: old, to: p.line)
         }
         if isPlaying != p.isPlaying {
             isPlaying = p.isPlaying
@@ -116,11 +123,22 @@ final class NowPlayingMonitor: ObservableObject {
 
     private func applyScriptSnapshot(_ s: MediaAppleScriptReader.MediaScriptSnapshot) {
         if trackTitle != s.line {
+            let old = trackTitle
             trackTitle = s.line
+            onTrackLineChanged(from: old, to: s.line)
         }
         if isPlaying != s.isPlaying {
             isPlaying = s.isPlaying
         }
+    }
+
+    private func onTrackLineChanged(from old: String?, to new: String?) {
+        let n = new?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
+        guard !n.isEmpty else { return }
+        if let prev = lastNonEmptyTrackLine, prev != n {
+            danceGifUsesAlternate.toggle()
+        }
+        lastNonEmptyTrackLine = n
     }
 
     // MARK: - MPNowPlayingInfoCenter (respaldor / Music cuando publica aquí)

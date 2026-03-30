@@ -33,7 +33,8 @@ struct MarqueeTitleView: View {
                         .font(.system(size: fontSize, weight: .regular, design: .default))
                         .foregroundStyle(.white.opacity(0.78))
                         .lineLimit(1)
-                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .multilineTextAlignment(.center)
+                        .frame(maxWidth: .infinity, alignment: .center)
                 } else {
                     let gap: CGFloat = 20
                     let travel = max(0, w - available + gap)

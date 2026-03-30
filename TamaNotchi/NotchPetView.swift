@@ -28,7 +28,6 @@ struct NotchPetView: View {
         expanded ? NotchWindowMetrics.petLogicalHeight : NotchWindowMetrics.petPeekHeight
     }
 
-    private var statFont: CGFloat { expanded ? 11 : 9 }
     private var statIcon: CGFloat { expanded ? 11 : 9 }
 
     /// Radio solo en esquinas inferiores (superiores rectas, al ras del notch).
@@ -64,7 +63,7 @@ struct NotchPetView: View {
             ZStack(alignment: .top) {
                 islandMaskShape
                     .fill(Color.black)
-                islandChrome(danceBob: danceBob)
+                islandChrome(danceBob: danceBob, timelineDate: context.date)
                     .offset(x: shake, y: contentShiftY)
             }
             .frame(
@@ -76,9 +75,13 @@ struct NotchPetView: View {
         }
     }
 
-    private func islandChrome(danceBob: CGFloat) -> some View {
+    /// Parpadeo: un frame corto cada `blinkInterval` s (sprite estático).
+    private static let blinkInterval: TimeInterval = 3
+    private static let blinkDuration: TimeInterval = 0.16
+
+    private func islandChrome(danceBob: CGFloat, timelineDate: Date) -> some View {
         VStack(spacing: expanded ? 7 : 5) {
-            heroRow(danceBob: danceBob)
+            heroRow(danceBob: danceBob, timelineDate: timelineDate)
 
             careActionsRow
 
@@ -90,63 +93,108 @@ struct NotchPetView: View {
         .animation(.easeInOut(duration: 0.2), value: nowPlaying.isPlaying)
     }
 
-    private func heroRow(danceBob: CGFloat) -> some View {
+    private func heroRow(danceBob: CGFloat, timelineDate: Date) -> some View {
         HStack(alignment: .center, spacing: expanded ? 6 : 4) {
-            statSideColumn(
+            statBarSideColumn(
                 icon: "leaf.fill",
-                value: petStats.hungerClamped,
+                value: petStats.hunger,
                 tint: Color.mint.opacity(0.95),
-                alignment: .leading
+                alignment: .leading,
+                growDirection: .fromLeading
             )
             .frame(width: expanded ? 44 : 36, alignment: .leading)
 
             Spacer(minLength: 2)
 
             ZStack(alignment: .top) {
-                petSprite
+                petSprite(timelineDate: timelineDate)
                     .frame(width: petW, height: petH)
                     .offset(y: danceBob)
                     .clipped()
                     .contentShape(Rectangle())
                     .onTapGesture {
                         if petStats.isVeryHungry {
-                            petStats.beginRefusalAnimation()
+                            petStats.beginRefusalAnimation(hint: PetStats.refusalHintWhenHungry)
+                        } else if petStats.isFullySatisfied {
+                            petStats.beginRefusalAnimation(hint: PetStats.refusalHintWhenFull)
                         }
                     }
+
+                if let hint = petStats.refusalHint, !hint.isEmpty {
+                    refusalHintBubble(text: hint)
+                        .offset(y: danceBob - (expanded ? 8 : 6))
+                }
             }
             .id("\(skinStore.selectedSkinId)-\(petDisplayKey)")
 
             Spacer(minLength: 2)
 
-            statSideColumn(
+            statBarSideColumn(
                 icon: "heart.fill",
-                value: petStats.happinessClamped,
+                value: petStats.happiness,
                 tint: Color.pink.opacity(0.95),
-                alignment: .trailing
+                alignment: .trailing,
+                growDirection: .fromTrailing
             )
             .frame(width: expanded ? 44 : 36, alignment: .trailing)
         }
     }
 
-    private func statSideColumn(
+    private func statBarSideColumn(
         icon: String,
-        value: Int,
+        value: Double,
         tint: Color,
-        alignment: HorizontalAlignment
+        alignment: HorizontalAlignment,
+        growDirection: StatBarView.GrowDirection
     ) -> some View {
-        VStack(alignment: alignment == .leading ? .leading : .trailing, spacing: 2) {
+        let barW: CGFloat = expanded ? 42 : 34
+        let barH: CGFloat = expanded ? 5 : 4
+        return VStack(alignment: alignment == .leading ? .leading : .trailing, spacing: 3) {
             Image(systemName: icon)
                 .font(.system(size: statIcon, weight: .semibold))
                 .foregroundStyle(tint)
-            Text("\(value)")
-                .font(.system(size: statFont, weight: .bold, design: .rounded))
-                .monospacedDigit()
-                .foregroundStyle(.white.opacity(0.92))
+            StatBarView(
+                value: value,
+                tint: tint,
+                width: barW,
+                height: barH,
+                growDirection: growDirection
+            )
+            .accessibilityLabel(accessibilityStatLabel(icon: icon, value: value))
         }
     }
 
+    private func accessibilityStatLabel(icon: String, value: Double) -> String {
+        let n = Int(min(100, max(0, value.rounded())))
+        switch icon {
+        case "leaf.fill": return "Energía \(n) por ciento"
+        case "heart.fill": return "Vida \(n) por ciento"
+        default: return "\(n) por ciento"
+        }
+    }
+
+    private func refusalHintBubble(text: String) -> some View {
+        Text(text)
+            .font(.system(size: expanded ? 10 : 9, weight: .bold, design: .rounded))
+            .foregroundStyle(.white.opacity(0.96))
+            .multilineTextAlignment(.center)
+            .lineLimit(2)
+            .minimumScaleFactor(0.85)
+            .padding(.horizontal, 8)
+            .padding(.vertical, 5)
+            .background(
+                RoundedRectangle(cornerRadius: 8, style: .continuous)
+                    .fill(Color.black.opacity(0.74))
+            )
+            .overlay(
+                RoundedRectangle(cornerRadius: 8, style: .continuous)
+                    .strokeBorder(Color.white.opacity(0.28), lineWidth: 1)
+            )
+            .shadow(color: .black.opacity(0.45), radius: 2, y: 1)
+    }
+
     private var careActionsRow: some View {
-        HStack(spacing: expanded ? 12 : 8) {
+        HStack(spacing: expanded ? 18 : 12) {
             careIconButton(assetName: "icon_food", help: "Dar de comer", blocksWhenHangry: false) {
                 petStats.feed()
             }
@@ -161,15 +209,16 @@ struct NotchPetView: View {
     }
 
     private var musicDock: some View {
-        VStack(alignment: .leading, spacing: expanded ? 5 : 3) {
+        VStack(alignment: .center, spacing: expanded ? 8 : 6) {
             MarqueeTitleView(
                 text: trackTitleLine,
-                fontSize: expanded ? 8 : 7,
+                fontSize: expanded ? 16 : 14,
                 cycleSeconds: 10
             )
-            .frame(height: expanded ? 12 : 10)
+            .frame(maxWidth: .infinity)
+            .frame(height: expanded ? 24 : 20)
 
-            HStack(spacing: expanded ? 14 : 10) {
+            HStack(spacing: expanded ? 20 : 16) {
                 Spacer(minLength: 0)
                 pixelMediaButton(label: "⏮", help: "Anterior") {
                     MediaHardwareKey.previousTrack.send()
@@ -191,9 +240,9 @@ struct NotchPetView: View {
     private func pixelMediaButton(label: String, help: String, action: @escaping () -> Void) -> some View {
         Button(action: action) {
             Text(label)
-                .font(.system(size: expanded ? 11 : 10, weight: .heavy, design: .monospaced))
+                .font(.system(size: expanded ? 22 : 20, weight: .heavy, design: .monospaced))
                 .foregroundStyle(.white.opacity(0.92))
-                .frame(minWidth: expanded ? 28 : 24, minHeight: expanded ? 22 : 18)
+                .frame(minWidth: expanded ? 56 : 48, minHeight: expanded ? 44 : 36)
                 .contentShape(Rectangle())
         }
         .buttonStyle(PixelTapButtonStyle())
@@ -206,7 +255,7 @@ struct NotchPetView: View {
         if petStats.isEating { return "eating" }
         if petStats.isPlayAnimating { return "play" }
         if petStats.isStrokeAnimating { return "stroke" }
-        if shouldDance { return "dance" }
+        if shouldDance { return nowPlaying.danceGifUsesAlternate ? "dance2" : "dance" }
         if petStats.isVeryHungry { return "hungry" }
         return "idle"
     }
@@ -230,7 +279,7 @@ struct NotchPetView: View {
         blocksWhenHangry: Bool,
         action: @escaping () -> Void
     ) -> some View {
-        let side: CGFloat = expanded ? 26 : 22
+        let side: CGFloat = expanded ? 39 : 33
         let blocked = blocksWhenHangry && petStats.isVeryHungry
         let icon = PetArt.image(named: assetName)
             .resizable()
@@ -250,7 +299,7 @@ struct NotchPetView: View {
                     .opacity(0.5)
 
                     Button {
-                        petStats.beginRefusalAnimation()
+                        petStats.beginRefusalAnimation(hint: PetStats.refusalHintWhenHungry)
                     } label: {
                         Color.clear
                             .frame(width: side, height: side)
@@ -270,8 +319,23 @@ struct NotchPetView: View {
         }
     }
 
+    private var allowsIdleBlink: Bool {
+        !petStats.isRefusing
+            && !petStats.isEating
+            && !petStats.isPlayAnimating
+            && !petStats.isStrokeAnimating
+            && !shouldDance
+    }
+
+    private func shouldShowBlink(at date: Date) -> Bool {
+        guard allowsIdleBlink else { return false }
+        let t = date.timeIntervalSinceReferenceDate
+        let phase = t.truncatingRemainder(dividingBy: Self.blinkInterval)
+        return phase < Self.blinkDuration
+    }
+
     @ViewBuilder
-    private var petSprite: some View {
+    private func petSprite(timelineDate: Date) -> some View {
         let skin = skinStore.currentSkin
         let box = CGSize(width: petW, height: petH)
         if petStats.isRefusing, let url = PetArt.gifURL(named: skin.refuseGif) {
@@ -282,16 +346,27 @@ struct NotchPetView: View {
             gif(url: url, box: box)
         } else if petStats.isStrokeAnimating, let url = PetArt.gifURL(named: skin.strokeGif) {
             gif(url: url, box: box)
-        } else if shouldDance, let url = PetArt.gifURL(named: skin.danceGif) {
-            gif(url: url, box: box)
+        } else if shouldDance {
+            let primary = nowPlaying.danceGifUsesAlternate ? skin.danceGif2 : skin.danceGif
+            let secondary = nowPlaying.danceGifUsesAlternate ? skin.danceGif : skin.danceGif2
+            if let url = PetArt.gifURL(named: primary) ?? PetArt.gifURL(named: secondary) {
+                gif(url: url, box: box)
+            } else {
+                staticPetBitmap(skin: skin, timelineDate: timelineDate)
+            }
         } else {
-            PetArt.image(named: petImageName(skin: skin))
-                .resizable()
-                .interpolation(.none)
-                .antialiased(false)
-                .scaledToFit()
-                .frame(width: petW, height: petH)
+            staticPetBitmap(skin: skin, timelineDate: timelineDate)
         }
+    }
+
+    private func staticPetBitmap(skin: PetSkinDefinition, timelineDate: Date) -> some View {
+        let imageName = shouldShowBlink(at: timelineDate) ? skin.blinkImage : petImageName(skin: skin)
+        return PetArt.image(named: imageName)
+            .resizable()
+            .interpolation(.none)
+            .antialiased(false)
+            .scaledToFit()
+            .frame(width: petW, height: petH)
     }
 
     private func gif(url: URL, box: CGSize) -> some View {

@@ -114,6 +114,13 @@
     "swift-dependencies": "/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi.build/PixelCatTemplateIcon.swiftdeps",
     "diagnostics": "/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi.build/PixelCatTemplateIcon.dia"
   },
+  "/Users/aminjoudigueraa/TamaNotchi/TamaNotchi/StatBarView.swift": {
+    "dependencies": "/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi.build/StatBarView.d",
+    "object": "/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi.build/StatBarView.swift.o",
+    "swiftmodule": "/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi.build/StatBarView~partial.swiftmodule",
+    "swift-dependencies": "/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi.build/StatBarView.swiftdeps",
+    "diagnostics": "/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi.build/StatBarView.dia"
+  },
   "/Users/aminjoudigueraa/TamaNotchi/TamaNotchi/SystemMediaRemoteCommands.swift": {
     "dependencies": "/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi.build/SystemMediaRemoteCommands.d",
     "object": "/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi.build/SystemMediaRemoteCommands.swift.o",

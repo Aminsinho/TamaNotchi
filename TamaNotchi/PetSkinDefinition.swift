@@ -9,10 +9,12 @@ struct PetSkinDefinition: Identifiable, Equatable, Hashable, Codable {
 
     let idleImage: String
     let hungryImage: String
+    let blinkImage: String
     let eatingGif: String
     let happyPlayGif: String
     let strokeGif: String
     let danceGif: String
+    let danceGif2: String
     let refuseGif: String
 
     /// Skin por defecto (assets actuales).
@@ -21,10 +23,12 @@ struct PetSkinDefinition: Identifiable, Equatable, Hashable, Codable {
         displayName: "Clásico",
         idleImage: "pet_idle",
         hungryImage: "pet_hungry",
+        blinkImage: "pet_blink",
         eatingGif: "pet_eating",
         happyPlayGif: "pet_happy_play",
         strokeGif: "pet_hand",
         danceGif: "pet_happy_dance",
+        danceGif2: "pet_happy_dance_2",
         refuseGif: "pet_refuse"
     )
 

@@ -10,8 +10,12 @@ final class BoundedGifContainer: NSView {
         layer?.masksToBounds = true
 
         imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.imageScaling = .scaleProportionallyDown
-        imageView.imageAlignment = .alignBottom
+        /// Misma lógica que SwiftUI `scaledToFit()` en el rect de la mascota: encajar en el marco y centrar.
+        imageView.imageScaling = .scaleProportionallyUpOrDown
+        imageView.imageAlignment = .alignCenter
+        imageView.wantsLayer = true
+        imageView.layer?.magnificationFilter = .nearest
+        imageView.layer?.minificationFilter = .nearest
         imageView.animates = true
         imageView.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
         imageView.setContentCompressionResistancePriority(.defaultLow, for: .vertical)
