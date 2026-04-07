@@ -1,11 +1,15 @@
 import SwiftUI
+import UniformTypeIdentifiers
 
 /// Dynamic Island: mascota central, estadísticas a los lados, música abajo, cuidados entre medias.
 struct NotchPetView: View {
     @EnvironmentObject private var petStats: PetStats
+    @EnvironmentObject private var documentStash: PetDocumentStash
     @EnvironmentObject private var notchHost: NotchWindowHost
     @EnvironmentObject private var nowPlaying: NowPlayingMonitor
     @EnvironmentObject private var skinStore: PetSkinStore
+
+    @State private var stashDropTargeted = false
 
     private var expanded: Bool { notchHost.isRevealed }
 
@@ -112,11 +116,78 @@ struct NotchPetView: View {
                     .offset(y: danceBob)
                     .clipped()
                     .contentShape(Rectangle())
+                    .overlay {
+                        RoundedRectangle(cornerRadius: 8, style: .continuous)
+                            .strokeBorder(
+                                stashDropTargeted ? Color.cyan.opacity(0.9) : Color.clear,
+                                lineWidth: stashDropTargeted ? 2 : 0
+                            )
+                    }
+                    .overlay(alignment: .topTrailing) {
+                        if !documentStash.isEmpty {
+                            HStack(spacing: 3) {
+                                Image(systemName: "doc.on.doc.fill")
+                                    .font(.system(size: expanded ? 10 : 8, weight: .bold))
+                                Text("\(documentStash.count)")
+                                    .font(.system(size: expanded ? 10 : 8, weight: .heavy, design: .rounded))
+                                    .monospacedDigit()
+                            }
+                            .foregroundStyle(.white)
+                            .padding(.horizontal, 7)
+                            .padding(.vertical, 4)
+                            .background(
+                                Capsule(style: .continuous)
+                                    .fill(Color.orange.opacity(0.88))
+                            )
+                            .offset(x: expanded ? 6 : 4, y: expanded ? -4 : -3)
+                            .allowsHitTesting(false)
+                        }
+                    }
+                    .onDrop(of: [.fileURL], isTargeted: $stashDropTargeted) { providers in
+                        NSLog("[TamaNotchi][Stash] onDrop providers=%ld", providers.count)
+                        guard !providers.isEmpty else { return false }
+                        Task { @MainActor in
+                            for (i, p) in providers.enumerated() {
+                                NSLog(
+                                    "[TamaNotchi][Stash] provider[%ld] hasItem=%@ registered=%@",
+                                    i,
+                                    p.hasItemConformingToTypeIdentifier(UTType.fileURL.identifier) ? "fileURL" : "other",
+                                    p.registeredTypeIdentifiers.joined(separator: ",")
+                                )
+                                do {
+                                    let url = try await StashDropSupport.loadFileURL(from: p)
+                                    documentStash.ingest(url: url)
+                                } catch {
+                                    let ns = error as NSError
+                                    NSLog(
+                                        "[TamaNotchi][Stash] drop falló provider[%ld] domain=%@ code=%ld %@",
+                                        i,
+                                        ns.domain,
+                                        ns.code,
+                                        error.localizedDescription
+                                    )
+                                }
+                            }
+                        }
+                        return true
+                    }
+                    .stashDragWhenNeeded(stash: documentStash)
                     .onTapGesture {
-                        if petStats.isVeryHungry {
+                        if !documentStash.isEmpty {
+                            NSLog(
+                                "[TamaNotchi][Stash] tap recuperar (count=%ld) notchWindow=%@",
+                                documentStash.count,
+                                notchHost.notchWindowForSheet.map { _ in "set" } ?? "nil"
+                            )
+                            documentStash.beginRetrieveFlow(hostWindow: notchHost.notchWindowForSheet)
+                        } else if petStats.isVeryHungry {
+                            NSLog("[TamaNotchi][Stash] tap (sin alijo): hambre → negación")
                             petStats.beginRefusalAnimation(hint: PetStats.refusalHintWhenHungry)
                         } else if petStats.isFullySatisfied {
+                            NSLog("[TamaNotchi][Stash] tap (sin alijo): lleno → negación")
                             petStats.beginRefusalAnimation(hint: PetStats.refusalHintWhenFull)
+                        } else {
+                            NSLog("[TamaNotchi][Stash] tap sin acción (alijo vacío, stats normales)")
                         }
                     }
 
@@ -337,31 +408,32 @@ struct NotchPetView: View {
     @ViewBuilder
     private func petSprite(timelineDate: Date) -> some View {
         let skin = skinStore.currentSkin
+        let f = skin.folder
         let box = CGSize(width: petW, height: petH)
-        if petStats.isRefusing, let url = PetArt.gifURL(named: skin.refuseGif) {
+        if petStats.isRefusing, let url = PetArt.gifURL(named: PetSkinDefinition.refuseGif, in: f) {
             gif(url: url, box: box)
-        } else if petStats.isEating, let url = PetArt.gifURL(named: skin.eatingGif) {
+        } else if petStats.isEating, let url = PetArt.gifURL(named: PetSkinDefinition.eatingGif, in: f) {
             gif(url: url, box: box)
-        } else if petStats.isPlayAnimating, let url = PetArt.gifURL(named: skin.happyPlayGif) {
+        } else if petStats.isPlayAnimating, let url = PetArt.gifURL(named: PetSkinDefinition.happyPlayGif, in: f) {
             gif(url: url, box: box)
-        } else if petStats.isStrokeAnimating, let url = PetArt.gifURL(named: skin.strokeGif) {
+        } else if petStats.isStrokeAnimating, let url = PetArt.gifURL(named: PetSkinDefinition.strokeGif, in: f) {
             gif(url: url, box: box)
         } else if shouldDance {
-            let primary = nowPlaying.danceGifUsesAlternate ? skin.danceGif2 : skin.danceGif
-            let secondary = nowPlaying.danceGifUsesAlternate ? skin.danceGif : skin.danceGif2
-            if let url = PetArt.gifURL(named: primary) ?? PetArt.gifURL(named: secondary) {
+            let primary = nowPlaying.danceGifUsesAlternate ? PetSkinDefinition.danceGif2 : PetSkinDefinition.danceGif
+            let secondary = nowPlaying.danceGifUsesAlternate ? PetSkinDefinition.danceGif : PetSkinDefinition.danceGif2
+            if let url = PetArt.gifURL(named: primary, in: f) ?? PetArt.gifURL(named: secondary, in: f) {
                 gif(url: url, box: box)
             } else {
-                staticPetBitmap(skin: skin, timelineDate: timelineDate)
+                staticPetBitmap(folder: f, timelineDate: timelineDate)
             }
         } else {
-            staticPetBitmap(skin: skin, timelineDate: timelineDate)
+            staticPetBitmap(folder: f, timelineDate: timelineDate)
         }
     }
 
-    private func staticPetBitmap(skin: PetSkinDefinition, timelineDate: Date) -> some View {
-        let imageName = shouldShowBlink(at: timelineDate) ? skin.blinkImage : petImageName(skin: skin)
-        return PetArt.image(named: imageName)
+    private func staticPetBitmap(folder: String, timelineDate: Date) -> some View {
+        let imageName = shouldShowBlink(at: timelineDate) ? PetSkinDefinition.blinkImage : petImageName()
+        return PetArt.image(named: imageName, in: folder)
             .resizable()
             .interpolation(.none)
             .antialiased(false)
@@ -375,11 +447,21 @@ struct NotchPetView: View {
             .clipped()
     }
 
-    private func petImageName(skin: PetSkinDefinition) -> String {
+    private func petImageName() -> String {
         if petStats.isVeryHungry {
-            return skin.hungryImage
+            return PetSkinDefinition.hungryImage
         }
-        return skin.idleImage
+        return PetSkinDefinition.idleImage
+    }
+}
+
+private extension View {
+    /// Arrastrar documentos del alijo desde el gato hacia fuera. Siempre aplica `.onDrag`: si lo quitáramos al vaciar el alijo,
+    /// SwiftUI desmonta el gesto en mitad del teardown de la sesión y puede provocar crash (trap) al soltar el último archivo.
+    func stashDragWhenNeeded(stash: PetDocumentStash) -> some View {
+        onDrag {
+            stash.dragItemProvider() ?? NSItemProvider()
+        }
     }
 }
 
@@ -396,6 +478,7 @@ struct NotchPetView_Previews: PreviewProvider {
     static var previews: some View {
         NotchPetView()
             .environmentObject(PetStats())
+            .environmentObject(PetDocumentStash())
             .environmentObject(NotchWindowHost())
             .environmentObject(NowPlayingMonitor())
             .environmentObject(PetSkinStore())

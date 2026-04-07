@@ -70,6 +70,9 @@ final class NotchWindowHost: ObservableObject {
     @Published fileprivate(set) var isRevealed: Bool = true
     fileprivate weak var window: NSWindow?
 
+    /// Ventana de la isla (p. ej. hojas modales de extracción del alijo).
+    var notchWindowForSheet: NSWindow? { window }
+
     fileprivate func setRevealed(_ revealed: Bool) {
         guard isRevealed != revealed else { return }
         isRevealed = revealed
@@ -81,6 +84,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     private var mousePollTimer: Timer?
 
     private let petStats = PetStats()
+    private let documentStash = PetDocumentStash()
     private let notchHost = NotchWindowHost()
     private let nowPlaying = NowPlayingMonitor()
     private let skinStore = PetSkinStore()
@@ -180,6 +184,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     private func setupNotchWindow() {
         let root = NotchPetView()
             .environmentObject(petStats)
+            .environmentObject(documentStash)
             .environmentObject(notchHost)
             .environmentObject(nowPlaying)
             .environmentObject(skinStore)

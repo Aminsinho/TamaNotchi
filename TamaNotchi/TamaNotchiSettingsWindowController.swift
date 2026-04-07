@@ -50,7 +50,7 @@ private struct SettingsRootView: View {
                     }
                 }
 
-                Text("Para nuevos skins: enlaza PNG/GIF en BundleResources y añade una fila en PetSkinDefinition.builtIn.")
+                Text("Para añadir una mascota: crea una carpeta en Assets/<Nombre> con los sprites, symlinks en BundleResources/<Nombre> y una entrada en PetSkinDefinition.builtIn.")
                     .font(.caption)
                     .foregroundStyle(.secondary)
                     .fixedSize(horizontal: false, vertical: true)

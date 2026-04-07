@@ -86,6 +86,13 @@
     "swift-dependencies": "/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi.build/PetArt.swiftdeps",
     "diagnostics": "/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi.build/PetArt.dia"
   },
+  "/Users/aminjoudigueraa/TamaNotchi/TamaNotchi/PetDocumentStash.swift": {
+    "dependencies": "/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi.build/PetDocumentStash.d",
+    "object": "/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi.build/PetDocumentStash.swift.o",
+    "swiftmodule": "/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi.build/PetDocumentStash~partial.swiftmodule",
+    "swift-dependencies": "/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi.build/PetDocumentStash.swiftdeps",
+    "diagnostics": "/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi.build/PetDocumentStash.dia"
+  },
   "/Users/aminjoudigueraa/TamaNotchi/TamaNotchi/PetSkinDefinition.swift": {
     "dependencies": "/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi.build/PetSkinDefinition.d",
     "object": "/Users/aminjoudigueraa/TamaNotchi/.build/arm64-apple-macosx/debug/TamaNotchi.build/PetSkinDefinition.swift.o",

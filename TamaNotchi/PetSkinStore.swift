@@ -1,14 +1,14 @@
 import Combine
 import Foundation
 
-/// Skin elegida por el usuario (persistente en `UserDefaults`).
+/// Mascota elegida por el usuario (persistente en `UserDefaults`).
 final class PetSkinStore: ObservableObject {
     private static let defaultsKey = "TamaNotchi.PetSkin.selectedId"
 
     @Published private(set) var selectedSkinId: String
 
     var currentSkin: PetSkinDefinition {
-        PetSkinDefinition.builtIn.first { $0.id == selectedSkinId } ?? .classic
+        PetSkinDefinition.builtIn.first { $0.id == selectedSkinId } ?? .mitchy
     }
 
     init() {
@@ -16,7 +16,7 @@ final class PetSkinStore: ObservableObject {
         if let saved, PetSkinDefinition.builtIn.contains(where: { $0.id == saved }) {
             selectedSkinId = saved
         } else {
-            selectedSkinId = PetSkinDefinition.classic.id
+            selectedSkinId = PetSkinDefinition.mitchy.id
         }
     }
 

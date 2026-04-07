@@ -12,7 +12,7 @@ let package = Package(
             name: "TamaNotchi",
             path: "TamaNotchi",
             exclude: ["Info.plist", "TamaNotchi.entitlements"],
-            resources: [.process("BundleResources")]
+            resources: [.copy("BundleResources")]
         )
     ]
 )
